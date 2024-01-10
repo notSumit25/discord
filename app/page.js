@@ -1,12 +1,21 @@
-import Image from 'next/image'
-import { UserButton } from '@clerk/nextjs'
-import ServerForm from '@/components/ModalForm'
-export default function Home() {
-  
+import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
+import ServerForm from "@/components/ModalForm";
+import { existingUser } from "@/lib/Current";
+import { Server } from "@/models/serverModel";
+import { redirect } from "next/navigation";
+export default async function Home() {
+  const profile = await existingUser();
+  const server = await Server.findOne({
+    id: profile.id,
+  });
+  if (server) {
+    return redirect(`/servers/${server.id}`);
+  }
   return (
     <div>
-      <UserButton afterSignOutUrl='/' />
+      <UserButton afterSignOutUrl="/" />
       <ServerForm />
     </div>
-  )
+  );
 }
