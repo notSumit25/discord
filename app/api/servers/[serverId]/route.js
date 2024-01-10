@@ -29,7 +29,7 @@ export async function PATCH(req,{params}){
        }
        const {servername,serverpic}=await req.json();
        const serverId={params}
-       const server=await Server.findOneAndUpdate({serverId,servername:servername,serverpic:serverpic})
+       const server=await Server.findOneAndUpdate(serverId,{servername:servername,serverpic:serverpic})
        return NextResponse.json({"msg":`${server} is updated`})
    
     } catch (error) {

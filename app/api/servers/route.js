@@ -1,27 +1,29 @@
 import {connect} from '@/lib/db.js'
-import { Server } from '@/models/serverModel'
+import { Server } from '@/models/serverModel.js'
 import { NextRequest,NextResponse } from 'next/server'
-import {auth} from '@clerk/nextjs'
-import { currentUser } from '@/lib/currentUser'
+import {auth,currentUser} from '@clerk/nextjs'
+import {User} from '@/models/userModel.js'
 import { v4 as uuidv4 } from "uuid";
-await connect()
 
+await connect()
 //create new server
 export async function POST(req){
     try {
+        console.log("hey");
         const reqBody=await req.json()
         const {servername,serverpic}=reqBody;
-        const user=await currentUser();
-        if(!user)
+        console.log(servername)
+        const user = await currentUser();
+        const userm=await User.findOne({userid:user.id});
+        if(!userm)
         {
             return NextResponse("Unauthorized",{status:401});
         }
         const newserver=new Server({
-            ServerAdmin:user.userid,
-            users:user,
+            ServerAdmin:user.id,
+            users:userm,
             servername,
-            serverpic,
-            inviteCode:uuidv4(),
+            serverpic
         })
         return NextResponse.json(newserver);
 

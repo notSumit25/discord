@@ -14,8 +14,6 @@ export async function POST(req){
         
         const userexist=await User.findOne({email});
          const {userId}=auth();
-         console.log(1);
-         console.log(userId);
         if(userexist)
         {
            return NextResponse.json({error:"User already exists"},{status:400})
@@ -87,7 +85,6 @@ export async function PUT(req){
         const reqBody=await req.json()
         const { username, email, password } = reqBody;
         const user = await User.findOne({email});
-        console.log(user)
 
         const cmppass=await bcryptjs.compare(password,user.password)
         if(!cmppass)
