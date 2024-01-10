@@ -23,6 +23,6 @@ const serverSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Server = mongoose.models.Server || mongoose.model("server", serverSchema);
+const Server = mongoose.models.Server || mongoose.model("Server", serverSchema);
 
 export { Server };
