@@ -10,20 +10,22 @@ const serverSchema = mongoose.Schema(
             ref:"User"
         }
     ],
-    inviteCode: { type: "String", required: true },
+    ServerAdmin:{
+      type:"String" //who created the server
+    },
+    inviteCode: { 
+    type: "String",
+    required: true,
+    default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+   },
     serverpic: {
       type: "String",
       required: true,
-    },
-    groupAdmin:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-    },
-
+    }
   },
   { timestamps: true }
 );
 
-const Server =  mongoose.model("server", serverSchema);
+const Server =  mongoose.model("Server", serverSchema);
 
 export { Server };

@@ -1,5 +1,7 @@
 import {connect} from '@/lib/db.js'
 import {User} from '@/models/userModel.js'
+import { getAuth } from "@clerk/nextjs/server";
+import {auth} from '@clerk/nextjs'
  import { NextRequest,NextResponse } from 'next/server'
 import bcryptjs from 'bcryptjs'
 
@@ -11,18 +13,21 @@ export async function POST(req){
         const {username,email,password}=reqBody;
         
         const userexist=await User.findOne({email});
-         
+         const {userId}=auth();
+         console.log(1);
+         console.log(userId);
         if(userexist)
         {
            return NextResponse.json({error:"User already exists"},{status:400})
         }
         const salt= await bcryptjs.genSalt(10)
         const hashpass=await bcryptjs.hash(password,salt)
-
+        
         const user=new User({
             username,
             email,
-            password:hashpass
+            password:hashpass,
+            userid:userId
         })
         const saveduser=await user.save()
         return NextResponse.json({

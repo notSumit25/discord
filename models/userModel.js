@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const userSchema = mongoose.Schema(
   {
     username: { type: "String", required: true },
+    userid:{type:'String'},
     email: { type: "String", unique: true, required: true },
     password: { type: "String", required: true },
     pic: {
@@ -12,14 +13,19 @@ const userSchema = mongoose.Schema(
       default:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
+    server:
+    [{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Server"
+    }],
+    channel:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Channel"
+    }]
   },
   { timestamps: true }
 );
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("users", userSchema);
 
 export { User };
