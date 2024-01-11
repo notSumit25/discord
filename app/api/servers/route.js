@@ -16,18 +16,28 @@ export async function POST(req) {
     console.log(user);
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {
-      return NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
     }
-    const newServer = new Server({
+    const newServer = await Server.create({
       ServerAdmin: user.id,
       users: userm,
       servername,
       serverpic,
     });
     console.log('Server Created Successfully')
-    return NextResponse.json(newServer);
+    return new NextResponse.json({newServer});
   } catch (error) {
     console.log("[SERVERS_POST]", error);
-    return NextResponse("Internal Error", { status: 500 });
+    return new NextResponse({message: "Internal Error"}, { status: 500 });
+  }
+}
+
+export async function GET(){
+  try {
+    const servers = await Server.find();
+    return new NextResponse.json({servers});
+  } catch (error) {
+    console.log("[SERVERS_GET]", error);
+    return new NextResponse.json({message: "Internal Error"}, { status: 500 });
   }
 }
