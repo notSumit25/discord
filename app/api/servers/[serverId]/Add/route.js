@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from 'uuid'
 import { NextResponse } from 'next/server'
 import { Server } from '@/models/serverModel';
-import { currentUser } from '@/lib/currentUser'
+import { currentUser } from '@/lib/CurrentUser'
 
 //add current user in server
 export async function PATCH(req,{params}){

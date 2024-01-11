@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const MessageSchema = mongoose.Schema(
     {
         sender:{
@@ -28,6 +27,6 @@ const MessageSchema = mongoose.Schema(
     { timestamps: true }
   );
   
-  const Message =  mongoose.model("Message", MessageSchema);
+  const Message =  mongoose.models.Message || mongoose.model("Message", MessageSchema);
   
   export { Message };

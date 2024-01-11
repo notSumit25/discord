@@ -17,7 +17,7 @@ const serverSchema = new mongoose.Schema(
     inviteCode: { 
     type: "String",
     required: true,
-    default:uuidv4()
+    default: uuidv4()
    },
     serverpic: {
       type: "String",

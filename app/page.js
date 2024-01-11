@@ -5,14 +5,13 @@ import { existingUser } from "@/lib/Current";
 import { Server } from "@/models/serverModel";
 import { redirect } from "next/navigation";
 export default async function Home() {
-    const profile = await existingUser();
-    console.log(profile);
-  // const server = await Server.findOne({
-  //   id: profile.id,
-  // });
-  // if (server) {
-  //   return redirect(`/servers/${server.id}`);
-  // }
+  const profile = await existingUser();
+  const server = await Server.findOne({
+    ServerAdmin: profile.userId,
+  });
+  if (server) {
+    return redirect(`/servers/${server.id}`);
+  }
   return (
     <div>
       <UserButton afterSignOutUrl="/" />

@@ -5,7 +5,6 @@ const userSchema = mongoose.Schema(
   {
     userId: { type: "String", unique: true},
     username: { type: "String", required: true },
-    userid:{type:'String'},
     email: { type: "String", unique: true, required: true },
     // password: { type: "String", required: true },
     pic: {
@@ -27,6 +26,6 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.models.User || mongoose.model("users", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export { User };

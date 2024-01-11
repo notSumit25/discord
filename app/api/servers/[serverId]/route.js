@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { currentUser } from "@/lib/currentUser";
+import { currentUser } from "@/lib/CurrentUser";
 import { Server } from "@/models/serverModel";
 
 //delete server

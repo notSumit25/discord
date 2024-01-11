@@ -15,7 +15,7 @@ const channelSchema = mongoose.Schema(
             ref:"User"
         }
     ],
-    messgaes:[
+    messages:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"Message"
@@ -30,6 +30,6 @@ const channelSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Channel =  mongoose.model("Channel", channelSchema);
+const Channel = mongoose.models.Channel ||  mongoose.model("Channel", channelSchema);
 
 export { Channel };

@@ -3,17 +3,25 @@ import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 // FileForm.js
 import '@uploadthing/react/styles.css'
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
 const ServerForm = () => {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/api/server',{
-        username: name,
-        pic: image,
+    try {
+      await axios.post('/api/servers',{
+        servername: name,
+        serverpic: image,
     })
+    router.refresh();
+    window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
