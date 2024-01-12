@@ -8,12 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 await connect();
 export async function POST(req) {
   try {
-    console.log("hey");
     const reqBody = await req.json();
     console.log(reqBody);
     const { servername, serverpic } = reqBody;
     const user = await currentUser();
-    console.log(user);
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {
       return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
@@ -24,6 +22,7 @@ export async function POST(req) {
       servername,
       serverpic,
     });
+    await newServer.save()
     console.log('Server Created Successfully')
     return new NextResponse.json({newServer});
   } catch (error) {
@@ -32,10 +31,11 @@ export async function POST(req) {
   }
 }
 
-export async function GET(){
+export async function GET(req){
   try {
-    const servers = await Server.find();
-    return new NextResponse.json({servers});
+    await connect();
+    const servers = await Server.find({});
+    return new NextResponse(servers);
   } catch (error) {
     console.log("[SERVERS_GET]", error);
     return new NextResponse.json({message: "Internal Error"}, { status: 500 });
