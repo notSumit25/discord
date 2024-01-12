@@ -21,8 +21,10 @@ export async function POST(req) {
       users: userm,
       servername,
       serverpic,
+      channels:[
+        { channelname: "general"}
+      ],
     });
-    await newServer.save()
     console.log('Server Created Successfully')
     return new NextResponse.json({newServer});
   } catch (error) {

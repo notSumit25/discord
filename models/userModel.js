@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const bcrypt = require("bcryptjs");
 
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     userId: { type: "String", unique: true},
     username: { type: "String", required: true },

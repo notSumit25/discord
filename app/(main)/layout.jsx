@@ -6,7 +6,7 @@ export default function ServerLayout({ children }) {
       <div className="min-h-screen bg-[#1e1f22] w-16  flex fixed">
         <SideBar />
       </div>
-      <main className="md:pl-20 h-full ">{children}</main>
+      <main className="md:pl-16 h-full ">{children}</main>
     </div>
   );
 }
