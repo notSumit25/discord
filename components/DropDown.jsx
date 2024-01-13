@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from "react";
 import Modal from "./InviteModal";
+import InviteModal from "./InviteModal";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
@@ -24,7 +25,7 @@ let useClickOutside = (handler) => {
 };
 // Handler hook for when Outside click dropdown close End Code====>>
 
-const Dropdown = () => {
+const Dropdown = ({name,code}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   let domNode = useClickOutside(() => {
@@ -34,14 +35,14 @@ const Dropdown = () => {
   return (
     <>
             {/* one */}
-            <div ref={domNode} className="w-full h-10">
+            <div ref={domNode} className="w-full shadow-lg">
               <div className="text-center">
-                <div className="relative inline-block mb-8 text-left">
+                <div className="relative inline-block text-left">
                   <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                    className={`bg-primary flex items-center rounded-[5px] px-5 py-[13px] text-base font-medium text-white`}
+                    className={`bg-primary flex items-center rounded-[5px] px-5 py-[13px] text-base font-medium text-white justify-between`}
                   >
-                    Dropdown Button
+                    {name}
                     <span className="pl-4">
                       <svg
                         width={20}
@@ -56,16 +57,13 @@ const Dropdown = () => {
                     </span>
                   </button>
                   <div
-                    className={`shadow-1 dark:shadow-box-dark absolute left-0 z-40 mt-2 w-full rounded-md bg-black dark:bg-dark-2 py-[10px] transition-all ${
+                    className={`shadow-1 dark:shadow-box-dark absolute -left-7 z-40 mt-2 w-48 rounded-lg bg-black dark:bg-dark-2 transition-all ${
                       dropdownOpen
                         ? "top-full opacity-100 visible"
                         : "top-[110%] invisible opacity-0"
                     }`}
                   >
-                    <Modal />
-                    <Modal />
-                    <Modal />
-                    <Modal />
+                    <InviteModal code={code} />
                   </div>
                 </div>
               </div>
