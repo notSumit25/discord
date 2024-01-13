@@ -7,28 +7,35 @@ const serverSchema = new mongoose.Schema(
     servername: { type: "String", required: true },
     users: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        role: {
+          type: String,
+          default: "Member",
+        },
       },
     ],
     channels: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Channel",
-      }
+        default: "general",
+      },
     ],
-    ServerAdmin:{
-      type:"String" //who created the server
+    ServerAdmin: {
+      type: "String", //who created the server
     },
-    inviteCode: { 
-    type: "String",
-    required: true,
-    default: uuidv4()
-   },
+    inviteCode: {
+      type: "String",
+      required: true,
+      default: uuidv4(),
+    },
     serverpic: {
       type: "String",
       required: true,
-    }
+    },
   },
   { timestamps: true }
 );

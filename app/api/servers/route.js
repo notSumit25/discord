@@ -18,7 +18,7 @@ export async function POST(req) {
     }
     const newServer = await Server.create({
       ServerAdmin: user.id,
-      users: userm,
+      users: [{userId:userm.id,role:'Admin'}],
       servername,
       serverpic,
     });

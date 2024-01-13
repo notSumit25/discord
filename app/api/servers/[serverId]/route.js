@@ -10,7 +10,7 @@ export async function DELETE(req,{params}){
     const user=await currentUser();
     console.log(user.id)
     await Server.findOneAndDelete({_id:params.serverId})
-    return new NextResponse.json({"msg":`server is deleted`})
+    return new NextResponse.json({msg:`server is deleted`})
 
  } catch (error) {
     console.log("[SERVER_ID_DELETE]", error);
