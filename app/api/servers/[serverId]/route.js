@@ -9,7 +9,7 @@ export async function DELETE(req,{params}){
  try {
     const user=await currentUser();
     console.log(user.id)
-    await Server.findOneAndDelete({ServerAdmin:user.id})
+    await Server.findOneAndDelete({_id:params.serverId})
     return new NextResponse.json({"msg":`server is deleted`})
 
  } catch (error) {

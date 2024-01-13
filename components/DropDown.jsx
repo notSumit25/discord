@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Modal from "./InviteModal";
 import InviteModal from "./InviteModal";
+import DeleteServer from "./DeleteServer";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
@@ -23,9 +24,9 @@ let useClickOutside = (handler) => {
 
   return domNode;
 };
-// Handler hook for when Outside click dropdown close End Code====>>
 
-const Dropdown = ({name,code}) => {
+
+const Dropdown = ({name,code,param}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   let domNode = useClickOutside(() => {
@@ -34,7 +35,6 @@ const Dropdown = ({name,code}) => {
 
   return (
     <>
-            {/* one */}
             <div ref={domNode} className="w-full shadow-lg">
               <div className="text-center">
                 <div className="relative inline-block text-left">
@@ -64,12 +64,11 @@ const Dropdown = ({name,code}) => {
                     }`}
                   >
                     <InviteModal code={code} />
+                    <DeleteServer param={param} />
                   </div>
                 </div>
               </div>
             </div>
-            {/* End */}
-      {/* <!-- ====== Dropdowns Section End -->    */}
     </>
   );
 };
