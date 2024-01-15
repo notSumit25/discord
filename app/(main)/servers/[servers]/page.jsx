@@ -1,5 +1,3 @@
-
-
 const ServerPage = () => {
   return (
     <div className="">

@@ -53,7 +53,7 @@ export async function GET(req){
 
         const reqBody = await req.json();
         const { email } = reqBody;
-        console.log(email);
+      
 
         const user = await User.findOne({ email });
         
@@ -63,7 +63,7 @@ export async function GET(req){
             }, { status: 400 });
         }
 
-        console.log(user);
+      
 
         return NextResponse.json({
             msg: 'User found successfully',

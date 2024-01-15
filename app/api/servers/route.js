@@ -9,7 +9,7 @@ await connect();
 export async function POST(req) {
   try {
     const reqBody = await req.json();
-    console.log(reqBody);
+  
     const { servername, serverpic } = reqBody;
     const user = await currentUser();
     const userm = await User.findOne({ userId: user.id });
