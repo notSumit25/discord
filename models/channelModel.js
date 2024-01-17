@@ -2,16 +2,25 @@ import mongoose from "mongoose";
 
 const channelSchema = new mongoose.Schema(
   {
-    channelname: { type: "String", required: true },
-    id: { type: "String", required: true },
-    server: {
+    channelName: { type: "String", required: true },
+    serverId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Server",
     },
-    Users: [
+    type:{
+      type:"String",
+      default:'TEXT'
+    },
+    users: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        role: {
+          type: String,
+          default: "Member",
+        },
       },
     ],
     messages: [
