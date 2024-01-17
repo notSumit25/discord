@@ -10,7 +10,6 @@ await connect();
 export async function POST(req) {
   try {
     const reqBody = await req.json();
-  
     const { name ,type} = reqBody;
     const user = await currentUser();
     const serverId = req.query.serverId; 
