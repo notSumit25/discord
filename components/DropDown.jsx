@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Modal from "./InviteModal";
 import InviteModal from "./InviteModal";
 import DeleteServer from "./DeleteServer";
+import CreateChannel from "./CreateChannelModal";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
@@ -65,6 +66,7 @@ const Dropdown = ({name,code,param}) => {
                   >
                     <InviteModal code={code} />
                     <DeleteServer param={param} />
+                    <CreateChannel />
                   </div>
                 </div>
               </div>

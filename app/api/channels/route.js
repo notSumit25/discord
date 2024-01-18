@@ -5,14 +5,18 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { User } from "@/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
 import { Server } from "@/models/serverModel";
+import { useParams } from "next/navigation";
 
 await connect();
 export async function POST(req) {
   try {
     const reqBody = await req.json();
     const { name ,type} = reqBody;
+    console.log(name,type);
     const user = await currentUser();
-    const serverId = req.query.serverId; 
+    const {searchParams} = new URL(req.url)
+    const serverId = searchParams.get("servers");
+    console.log(serverId);  
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {
       return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
