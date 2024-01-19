@@ -10,12 +10,10 @@ import { useParams } from "next/navigation";
 await connect();
 export async function POST(req) {
   try {
-    const reqBody = await req.json();
-    const { name ,type} = reqBody;
+    const reqBody= await req.json();
+    const { name ,type,serverId} = reqBody;
     console.log(name,type);
     const user = await currentUser();
-    const {searchParams} = new URL(req.url)
-    const serverId = searchParams.get("servers");
     console.log(serverId);  
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {

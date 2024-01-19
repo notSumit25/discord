@@ -11,9 +11,8 @@ await connect();
 export async function DELETE(req,{params})
 {
     try {
-        const reqBody = await req.json();
+        const {serverId} = await req.json();
     const user = await currentUser();
-    const serverId = req.query.serverId; 
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {
       return new NextResponse.json({message:"Unauthorized"}, { status: 401 });

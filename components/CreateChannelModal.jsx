@@ -1,7 +1,7 @@
 'use Client'
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-
+import { currentServerId } from "@/lib/currentUser";
 
 const CreateChannel = ({param}) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -9,11 +9,12 @@ const CreateChannel = ({param}) => {
   const [type,setType] = useState('');
   const trigger = useRef(null);
   const modal = useRef(null);
-
+  console.log(Request)
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try{
-        await axios.post(`/api/channels/`,{name:name,type:type})
+        const ServerId=await currentServerId();
+        await axios.post(`/api/channels/`,{name:name,type:type,ServerId:ServerId})
         console.log("Channel Created");
         setModalOpen(false);
     }catch(e){
