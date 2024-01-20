@@ -34,7 +34,6 @@ const serverSchema = new mongoose.Schema(
     },
     serverpic: {
       type: "String",
-      required: true,
     },
   },
   { timestamps: true }
