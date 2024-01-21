@@ -10,7 +10,7 @@ export async function DELETE(req,{params}){
     const user=await currentUser();
     console.log(user.id)
     await Server.findOneAndDelete({_id:params.serverId})
-    return new NextResponse.json({msg:`server is deleted`})
+    return new NextResponse('Server deleted successfully')
 
  } catch (error) {
     console.log("[SERVER_ID_DELETE]", error);
@@ -27,7 +27,7 @@ export async function PATCH(req,{params}){
        }
        const {servername,serverpic}=await req.json();
        const server=await Server.findOneAndUpdate({_id:params.serverId},{servername:servername,serverpic:serverpic})
-       return NextResponse.json({"msg":`${server} is updated`})
+       return NextResponse(`${servername} Updated`);
    
     } catch (error) {
        console.log("[SERVER_ID_UPDATED]", error);

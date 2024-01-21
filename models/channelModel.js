@@ -4,12 +4,12 @@ const channelSchema = new mongoose.Schema(
   {
     channelName: { type: "String", required: true },
     serverId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: "String",
       ref: "Server",
     },
-    type:{
-      type:"String",
-      default:'TEXT'
+    type: {
+      type: "String",
+      default: "TEXT",
     },
     users: [
       {

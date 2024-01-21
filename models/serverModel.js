@@ -25,7 +25,7 @@ const serverSchema = new mongoose.Schema(
       },
     ],
     ServerAdmin: {
-      type: "String", //who created the server
+      type: "String",
     },
     inviteCode: {
       type: "String",
