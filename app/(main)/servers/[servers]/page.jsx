@@ -1,7 +1,10 @@
+
+
+
 const ServerPage = () => {
   return (
     <div className="">
-      Server Page
+      Server Page Helloooooo
     </div>
   );
 };

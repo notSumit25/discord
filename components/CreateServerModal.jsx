@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import { useRouter } from 'next/navigation';
 
 
 const CreateServerModal = () => {
-  
+  const router = useRouter();
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [showModal, setShowModal] = useState(false);
