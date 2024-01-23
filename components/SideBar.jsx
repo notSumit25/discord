@@ -5,6 +5,8 @@ import { UserButton, redirectToSignIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import CreateServerModal from "./CreateServerModal";
+import { User } from "@/models/userModel";
+import { currentUser } from "@clerk/nextjs";
 
 const SideBar = async () => {
   await connect();
@@ -12,7 +14,8 @@ const SideBar = async () => {
   if (!profile) {
     return redirectToSignIn();
   }
-  const servers = await Server.find({ ServerAdmin: profile.userId });
+  const user = await User.findById(profile.id).populate('server');
+  const servers = user.server;
   console.log(servers);
   return (
     <div className="flex flex-col items-center min-h-screen w-full gap-2 py-3 bg-inherit justify-between">
