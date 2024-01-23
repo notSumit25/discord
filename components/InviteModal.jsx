@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 const InviteModal = ({ code }) => {
-  const inviteCode = `http://localhost:3000/invite/${code}`;
+  const inviteCode = `${code}`;
   const [modalOpen, setModalOpen] = useState(false);
 
   const trigger = useRef(null);

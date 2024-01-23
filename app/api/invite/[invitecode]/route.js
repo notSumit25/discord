@@ -10,8 +10,6 @@ import { currentUsers } from "@/lib/currentUser";
 await connect();
 export async function PATCH(req,{params}) {
   try {
-    console.log(params.inviteCode);
-    console.log(1);
     const profile = await currentUsers();
     if (!profile) {
       return new NextResponse({message: "Internal Error"}, { status: 500 });
@@ -19,18 +17,18 @@ export async function PATCH(req,{params}) {
     if (!params.invitecode) {
       return new NextResponse({message: "Internal Error"}, { status: 500 });
     }
+    console.log(profile._id)
     const exist = await Server.findOne({
       inviteCode: params.invitecode,
-      users: { $elemMatch: { userId: profile.userId } } // Use $elemMatch for nested array search
+      users: { $elemMatch: { userId: profile._id } } // Use $elemMatch for nested array search
     });
     console.log(exist);
     if (exist) {
         return new NextResponse({message:"server is already added successfully"})
       }
-    console.log("you are in server")
     const server = await Server.findOneAndUpdate(
         { inviteCode: params.invitecode },
-        { $push: { users: { userId: profile.userId, role: "Member" } } },
+        { $push: { users: { userId: profile._id, role: "Member" } } },
         { new: true }
     )
     return new NextResponse({message:"server added successfully"})

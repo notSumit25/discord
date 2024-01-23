@@ -30,8 +30,8 @@ const CreateServerModal = () => {
 
   const handleSubmit=async (e)=>{
     e.preventDefault();
-    console.log("!")
     try{
+      
       await axios.patch(`/api/invite/${invitecode}`)
        setShowModal(false);
        setInviteModal(false);
