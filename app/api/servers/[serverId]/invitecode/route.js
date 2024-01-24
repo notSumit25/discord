@@ -1,12 +1,11 @@
 import {v4 as uuidv4} from 'uuid'
 import { NextResponse } from 'next/server'
 import { Server } from '@/models/serverModel';
-import { currentUsers } from '@clerk/nextjs'
-
+import { currentUser } from '@clerk/nextjs'
 //generate new invite code 
 export async function PATCH(req,{params}){
     try {
-        const profile = await currentUsers();
+        const profile = await currentUser();
        if (!profile) {
         return new NextResponse("Unauthorized", { status: 401 });
       }
