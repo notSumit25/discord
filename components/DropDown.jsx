@@ -4,10 +4,12 @@ import Modal from "./InviteModal";
 import InviteModal from "./InviteModal";
 import DeleteServer from "./DeleteServer";
 import CreateChannel from "./CreateChannelModal";
+import axios from "axios";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
   let domNode = useRef();
+
 
   useEffect(() => {
     let maybeHandler = (event) => {
@@ -27,7 +29,21 @@ let useClickOutside = (handler) => {
 };
 
 
+
 const Dropdown = ({name,code,param}) => {
+  
+  const getChannels=async()=>{
+    try {
+      const TextChannel=await axios.get(`api/channels`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    
+  });
+
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   let domNode = useClickOutside(() => {

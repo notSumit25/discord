@@ -62,9 +62,6 @@ export async function GET(req){
                 msg: 'User not exists',
             }, { status: 400 });
         }
-
-      
-
         return NextResponse.json({
             msg: 'User found successfully',
             data: user,
@@ -80,22 +77,11 @@ export async function GET(req){
 
 
 //update profile
-export async function PUT(req){
+export async function PATCH(req){
     try {
         const reqBody=await req.json()
         const { username, email, password } = reqBody;
         const user = await User.findOne({email});
-
-        const cmppass=await bcryptjs.compare(password,user.password)
-        if(!cmppass)
-        {
-            return NextResponse.json({
-                msg:`Wrong password`
-            },{status:400})  
-        }
-
-        const salt= await bcryptjs.genSalt(10)
-        const hashpass=await bcryptjs.hash(password,salt)
         const updatedUser = await User.findByIdAndUpdate(
           user._id,
           {
