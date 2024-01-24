@@ -66,21 +66,3 @@ export async function POST(req) {
     return new NextResponse({message: "Internal Error"}, { status: 500 });
   }
 }
-
-export async function GET(req,res)
-{
-  try{
-    const reqBody= await req.json();
-    const user = await currentUser();
-    const userm = await User.findOne({ userId: user.id });
-    if (!userm) {
-      return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
-    }
-    res.status(200).json(userChannels);
-  }
-  catch(err)
-  {
-    console.log("[Channel_POST]", error);
-    return new NextResponse({message: "Internal Error"}, { status: 500 });
-  }
-}
