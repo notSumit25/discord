@@ -7,6 +7,7 @@ import Link from "next/link";
 import CreateServerModal from "./CreateServerModal";
 import { User } from "@/models/userModel";
 import { currentUser } from "@clerk/nextjs";
+import EditProfileModal from "./EditProfileModal";
 
 const SideBar = async () => {
   await connect();
@@ -33,6 +34,9 @@ const SideBar = async () => {
         ))}
         <div className="border-[1px] w-12" />
         <CreateServerModal/>
+      </div>
+      <div className="mt-[350px]">
+        <EditProfileModal/>
       </div>
       <div className="mb-4">
         <UserButton afterSignOutUrl="/" />

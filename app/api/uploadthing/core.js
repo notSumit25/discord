@@ -11,6 +11,18 @@ export const ourFileRouter = {
       if (!userId) throw new Error("Unauthorized");
       return { userId };
     })
+    .onUploadComplete(() => {}),
+    
+    UserImage: f({ image: { maxFileSize: "4MB" } })
+    .middleware(async ({ req }) => {
+      const {userId} = auth();
+      console.log(userId);
+      if (!userId) throw new Error("Unauthorized");
+      return { userId };
+    })
     .onUploadComplete(() => {})
 };
+
+
+
 

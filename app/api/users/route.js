@@ -81,13 +81,12 @@ export async function PATCH(req){
     try {
         const reqBody=await req.json()
         const { username, pic } = reqBody;
+        console.log(username,pic);
         const user = await currentUser();
-        const userm = await User.findByIdAndUpdate({ userId: user.id },{
+        const userm = await User.findOneAndUpdate({ userId: user.id },{
             username:username,
             pic:pic
-        },{
-            new:true
-        });
+          });
         return NextResponse.json({
             msg:'user profile updated Successfully',
             userm,
