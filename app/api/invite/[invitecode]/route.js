@@ -17,12 +17,12 @@ export async function PATCH(req,{params}) {
     if (!params.invitecode) {
       return new NextResponse({message: "Internal Error"}, { status: 500 });
     }
-    console.log(profile._id)
+    // console.log(profile._id)
     const exist = await Server.findOne({
       inviteCode: params.invitecode,
       users: { $elemMatch: { userId: profile._id } } // Use $elemMatch for nested array search
     });
-    console.log(exist);
+    // console.log(exist);
     if (exist) {
         return new NextResponse({message:"server is already added successfully"})
       }

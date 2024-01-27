@@ -17,7 +17,7 @@ const SideBar = async () => {
   }
   const user = await User.findById(profile.id).populate('server');
   const servers = user.server;
-  console.log(servers);
+  // console.log(servers);
   return (
     <div className="flex flex-col items-center min-h-screen w-full gap-2 py-3 bg-inherit justify-between">
       <div className="w-full flex flex-col items-center gap-3 py-3">

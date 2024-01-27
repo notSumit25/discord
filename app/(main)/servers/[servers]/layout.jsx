@@ -11,7 +11,7 @@ export default async function ChannelLayout({children, params}){
     }
     const server = await Server.findOne({_id:params.servers})
     const users = await Server.findOne({_id:params.servers}).populate('users');
-    console.log(users)
+    // console.log(users)
     if(!server){
         return redirect('/');
     }

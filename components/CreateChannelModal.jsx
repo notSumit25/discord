@@ -72,6 +72,7 @@ const CreateChannel = ({param}) => {
                 <label>Channel Name</label>
                 <input placeholder="Enter Channel Name" className="text-black px-2 py-1 my-4" value={name} onChange={(e)=>{setName(e.target.value)}} type="text" />
                 <select value={type} onChange={(e)=>{setType(e.target.value)}} className="text-black px-2 py-1" name="Type" id="Type">
+                    <option value="Select">Select</option>
                     <option value="TEXT">TEXT</option>
                     <option value="Audio">Audio</option>
                     <option value="Video">Video</option>

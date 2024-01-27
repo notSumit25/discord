@@ -3,7 +3,7 @@ import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 const UserProfile = async () => {
   const user = await currentUser();
-  console.log(user);
+  // console.log(user);
   return (
     <div className="w-full bg-zinc-900 flex items-center px-3 py-2 gap-2 rounded-md">
       <div className="flex w-full gap-2 items-center">

@@ -17,7 +17,7 @@ const Page = async ({ params }) => {
     inviteCode: params.invitecode,
     users: { $elemMatch: { userId: profile.userId } } // Use $elemMatch for nested array search
   });
-  console.log(exist);
+  // console.log(exist);
   console.log("you are in server")
   if (exist) {
     return redirect(`/servers/${exist._id}`);
@@ -28,7 +28,7 @@ const Page = async ({ params }) => {
     { $push: { users: { userId: profile.userId, role: "Member" } } },
     { new: true }
   );
-  console.log(server);
+  // console.log(server);
   console.log("server added")
   if (server) {
     return redirect(`/servers/${server._id}`);

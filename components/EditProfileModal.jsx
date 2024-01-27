@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
-import '@uploadthing/react/styles.css'
+// import '@uploadthing/react/styles.css'
 
 const EditProfileModal = () => {
      const [Modal,setModal]=useState(false);

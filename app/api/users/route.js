@@ -43,7 +43,7 @@ export async function POST(req){
 //get profile by email
 export async function GET(req){
     try {
-        console.log(req.json())
+        // console.log(req.json())
         // Check if the request body is empty
         if (!req.body || Object.keys(req.body).length === 0) {
             return NextResponse.json({
@@ -81,7 +81,7 @@ export async function PATCH(req){
     try {
         const reqBody=await req.json()
         const { username, pic } = reqBody;
-        console.log(username,pic);
+        // console.log(username,pic);
         const user = await currentUser();
         const userm = await User.findOneAndUpdate({ userId: user.id },{
             username:username,

@@ -8,7 +8,7 @@ import { User } from "@/models/userModel";
 export async function DELETE(req,{params}){
  try {
     const user=await currentUser();
-    console.log(user.id)
+   //  console.log(user.id)
     await Server.findOneAndDelete({_id:params.serverId})
     return new NextResponse('Server deleted successfully')
 
