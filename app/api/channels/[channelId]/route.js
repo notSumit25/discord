@@ -11,43 +11,13 @@ await connect();
 export async function DELETE(req,{params})
 {
     try {
-        const {serverId} = await req.json();
     const user = await currentUser();
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {
       return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
     }
-    if (!serverId) {
-        return new NextResponse("Server ID missing", { status: 400 });
-      }
-      if (!params.channelId) {
-        return new NextResponse("Channel ID missing", { status: 400 });
-      }
-      const isAuthorized = await Server.exists({
-        _id: serverId,
-        users: {
-          $elemMatch: {
-            userId: userm._id,
-            role: { $in: ["ADMIN","MODERATOR"] }
-          }
-        }
-      });
-      if (!isAuthorized) {
-        return new NextResponse("Unauthorized", { status: 401 });
-      }
-      const server = await Server.findByIdAndUpdate(
-        serverId,
-        {
-          $pull: {
-            channels: {
-                _id: params.channelId,
-                name: { $ne: "Member" }
-            }
-          }
-        },
-        { new: true }
-      );
-      return NextResponse.json(server);
+      await Channel.findByIdAndDelete(params.channelId);
+      return NextResponse.json("channel deleted");
     } catch (error) {
         console.log("[CHANNEL_ID_DELETE]", error);
         return new NextResponse("Internal Error", { status: 500 });

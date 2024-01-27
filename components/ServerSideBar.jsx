@@ -3,6 +3,7 @@ import Modal from './InviteModal'
 import Dropdown from './DropDown'
 import { Channel } from '@/models/channelModel'
 import { FetchChannel } from '@/lib/fetch'
+import DeleteChannel from './DeleteChannel'
 
 const ServerSideBar = async ({name, code,param}) => {
    const TextChannels = await FetchChannel(param);
@@ -17,7 +18,9 @@ const ServerSideBar = async ({name, code,param}) => {
           )}
            {TextChannels && TextChannels.map((item)=>(
               <button key={item._id} className='p-2 mb-3 text-center font-sans text-stone-300  bg-[#151515e4] text-large rounded '>
-                   #️⃣ {item.channelName}
+                   #️⃣ {item.channelName} 
+                    <DeleteChannel channelId={item._id}/>
+                  
               </button>
              ))}
          

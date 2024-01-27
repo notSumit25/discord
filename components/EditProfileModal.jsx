@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react'
 import axios from 'axios';
-import '@uploadthing/react/styles.css'
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import '@uploadthing/react/styles.css'
 
 const EditProfileModal = () => {
      const [Modal,setModal]=useState(false);
@@ -57,7 +57,7 @@ const EditProfileModal = () => {
           Upload Image
         </label>
         <UploadDropzone
-          endpoint="UserImage"
+          endpoint="serverImage"
           onClientUploadComplete={(res) => {
             console.log("Files: ", res);
             setPic(res?.[0].url)
