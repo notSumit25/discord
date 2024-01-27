@@ -13,9 +13,11 @@ const CreateChannel = ({param}) => {
     e.preventDefault();
     try{
         // const ServerId=await currentServerId();
-        await axios.post(`/api/channels/`,{name:name,type:type,param:param})
-        console.log("Channel Created");
-        setModalOpen(false);
+        await axios.post(`/api/channels/`,{name:name,type:type,param:param}).then(()=>{
+          console.log("Channel Created");
+          setModalOpen(false);
+          window.location.reload();
+        })
     }catch(e){
         console.log(e);
     }
