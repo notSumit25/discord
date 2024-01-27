@@ -1,9 +1,9 @@
 import {connect} from '@/lib/db.js'
 import {User} from '@/models/userModel.js'
 import { getAuth } from "@clerk/nextjs/server";
-import {auth} from '@clerk/nextjs'
  import { NextRequest,NextResponse } from 'next/server'
 import bcryptjs from 'bcryptjs'
+import { auth, currentUser } from "@clerk/nextjs";
 
 await connect()
 
@@ -80,19 +80,17 @@ export async function GET(req){
 export async function PATCH(req){
     try {
         const reqBody=await req.json()
-        const { username, email, password } = reqBody;
-        const user = await User.findOne({email});
-        const updatedUser = await User.findByIdAndUpdate(
-          user._id,
-          {
-            username: username || user.username,
-            password: hashpass || user.password,
-          },
-          { new: true }
-        );
+        const { username, pic } = reqBody;
+        const user = await currentUser();
+        const userm = await User.findByIdAndUpdate({ userId: user.id },{
+            username:username,
+            pic:pic
+        },{
+            new:true
+        });
         return NextResponse.json({
             msg:'user profile updated Successfully',
-            updatedUser,
+            userm,
         },{status:200})
       } catch (error) {
         console.log(error);
