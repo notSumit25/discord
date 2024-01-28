@@ -1,9 +1,11 @@
 'use Client'
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 
 const DeleteServer = ({param}) => {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const trigger = useRef(null);
   const modal = useRef(null);
@@ -14,6 +16,8 @@ const DeleteServer = ({param}) => {
         await axios.delete(`/api/servers/${param}`)
         console.log("Server Deleted");
         setModalOpen(false);
+        router.refresh();
+        window.location.reload();
     }catch(e){
         console.log(e);
     }

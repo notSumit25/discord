@@ -80,7 +80,7 @@ const handleModal=async(e)=>{
 
       {invitModal && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center"
+          className="fixed z-10 inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center"
           id="wrapper"
           onClick={handleCloseModal}
         >

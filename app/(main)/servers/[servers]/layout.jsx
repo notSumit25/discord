@@ -17,7 +17,7 @@ export default async function ChannelLayout({children, params}){
     }
 
     return(
-        <div className="min-h-screen w-full flex  justify-between relative">
+        <div className="min-h-screen w-full flex  justify-between">
             <div className="min-h-screen flex flex-col fixed w-60">
                 <ServerSideBar name={server.servername} code={server.inviteCode} param={params.servers} />
             </div>
