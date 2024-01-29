@@ -10,8 +10,9 @@ export default async function ChannelLayout({children, params}){
         return redirectToSignIn();
     }
     const server = await Server.findOne({_id:params.servers})
-    const users = await Server.findOne({_id:params.servers}).populate('users');
-    // console.log(users)
+    const users = await Server.findOne({_id:params.servers}).populate('users.userId', 'users');
+    console.log(users)
+    
     if(!server){
         return redirect('/');
     }
@@ -25,7 +26,7 @@ export default async function ChannelLayout({children, params}){
                 {children}
             </main>
             <div className="min-h-screen flex flex-col w-60 bg-[#2b2d31] sticky items-center py-4">
-                hehe
+                Members
             </div>
         </div>
     )
