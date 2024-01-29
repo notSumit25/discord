@@ -10,15 +10,8 @@ export default async function ChannelLayout({children, params}){
         return redirectToSignIn();
     }
     const server = await Server.findOne({_id:params.servers})
-<<<<<<< HEAD
     const users = await Server.findOne({_id:params.servers}).populate('users.userId');
     const usersinfo=await users.users;
-    console.log(usersinfo)
-=======
-    const users = await Server.findOne({_id:params.servers}).populate('users.userId', 'users');
-    console.log(users)
-    
->>>>>>> eb8fca658fb552c6bd0919976d563449d648bdbc
     if(!server){
         return redirect('/');
     }

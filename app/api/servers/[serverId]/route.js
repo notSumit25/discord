@@ -20,10 +20,10 @@ export async function DELETE(req,{params}){
 //update server name and image
 export async function PATCH(req,{params}){
     try {
-       const profile=await existingUser();
-       if(!profile)
-       {
-           return NextResponse("Unauthorised",{status:401});
+      const user = await currentUser();
+       const userm = await User.findOne({ userId: user.id });
+       if (!userm) {
+         return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
        }
        const {servername,serverpic}=await req.json();
        const server=await Server.findOneAndUpdate({_id:params.serverId},{servername:servername,serverpic:serverpic})
