@@ -2,15 +2,14 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
-// FileForm.js
-import '@uploadthing/react/styles.css'
+
 
 const EditServer = ({param}) => {
 
   console.log(param)
   const [Modal,setModal]=useState(false);
      const [name,setName]=useState("")
-     const [pic,setPic]=useState("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg")
+     const [pic,setPic]=useState("")
 
      const handleSubmit=async(e)=>{
         e.preventDefault();
@@ -18,8 +17,9 @@ const EditServer = ({param}) => {
             await axios.patch(`/api/servers/${param}`,{
               servername:name,
               serverpic:pic
-            }).then(()=>{
+            }).then(()=>{  
               setModal(false);
+              window.location.reload();
             })
 
         }catch(err){
@@ -43,9 +43,9 @@ const EditServer = ({param}) => {
    }
   return (
     <div>
-       <div className="w-full h-10 bg-inherit text-violet-500 text-center hover:bg-violet-500 hover:text-white py-2">
+       <div className="w-full h-10 bg-inherit text-pink-500 text-center hover:bg-pink-500 hover:text-white py-2">
        <button
-          onClick={() => Openmodal(true)}
+          onClick={Openmodal}
           className={`rounded-full px-6 text-base font-medium`}
         >
           Edit Server
@@ -60,7 +60,7 @@ const EditServer = ({param}) => {
       >
         <div className=" md:max-w-screen flex flex-col">
           <div className="bg-gray-800 rounded  md:max-h-screen">
-            <h1 className=' text-center p-3 m-2 text-2xl font-bold' >Edit Your Profile</h1>
+            <h1 className=' text-center p-3 m-2 text-2xl font-bold' >Edit Your Server</h1>
             <div className="flex flex-col m-3">
         <label htmlFor="file" className="block text-sm font-medium">
           Upload Image

@@ -2,13 +2,11 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
-// FileForm.js
-import '@uploadthing/react/styles.css'
 
 const EditProfileModal = () => {
      const [Modal,setModal]=useState(false);
      const [name,setName]=useState("")
-     const [pic,setPic]=useState("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg")
+     const [pic,setPic]=useState("")
 
      const handleSubmit=async(e)=>{
         e.preventDefault();
