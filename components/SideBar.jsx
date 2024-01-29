@@ -36,7 +36,6 @@ const SideBar = async () => {
         <CreateServerModal/>
       </div>
       <div className="mt-[350px]">
-        <EditProfileModal/>
       </div>
       <div className="mb-4">
         <UserButton afterSignOutUrl="/" />
