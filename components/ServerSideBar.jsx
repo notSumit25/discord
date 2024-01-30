@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const ServerSideBar = async ({ name, code, param }) => {
   const TextChannels = await FetchChannel(param);
-  // console.log(TextChannels);
+ 
 
   return (
     <div className="flex flex-col bg-[#2b2d31] w-full min-h-screen p-2 justify-between">
@@ -24,10 +24,10 @@ const ServerSideBar = async ({ name, code, param }) => {
           <Link
             key={item._id}
             href={`/servers/${param}/channels/${item._id}`}
-            className="pl-4 py-2 w-full text-start font-sans text-large text-gray-400"
+            className="pl-4 py-2 w-full text-start font-sans text-large text-gray-400 flex  justify-between"
           >
             #  {item.channelName}
-            {/* <DeleteChannel channelId={TextChannels.id} /> */}
+            <span> <DeleteChannel channelId={item._id.toJSON ? item._id.toJSON() : item._id} /></span>
           </Link>
         ))}
       </div>

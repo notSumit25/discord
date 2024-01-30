@@ -16,36 +16,35 @@ const CreateChannel = ({param}) => {
         await axios.post(`/api/channels/`,{name:name,type:type,param:param}).then(()=>{
           console.log("Channel Created");
           setModalOpen(false);
-          window.location.reload();
         })
     }catch(e){
         console.log(e);
     }
   }
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!modal.current) return;
-      if (
-        !modalOpen ||
-        modal.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setModalOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
+  // useEffect(() => {
+  //   const clickHandler = ({ target }) => {
+  //     if (!modal.current) return;
+  //     if (
+  //       (!modalOpen && !trigger.current.contains(target)) ||
+  //       (modal.current.contains(target) && !target.classList.contains("submit-button"))
+  //     )
+  //       return;
+  //     setModalOpen(false);
+  //   };
+  //   document.addEventListener("click", clickHandler);
+  //   return () => document.removeEventListener("click", clickHandler);
+  // }, [modalOpen]);
+  
 
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!modalOpen || keyCode !== 27) return;
-      setModalOpen(false);
-    };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  });
+  // // close if the esc key is pressed
+  // useEffect(() => {
+  //   const keyHandler = ({ keyCode }) => {
+  //     if (!modalOpen || keyCode !== 27) return;
+  //     setModalOpen(false);
+  //   };
+  //   document.addEventListener("keydown", keyHandler);
+  //   return () => document.removeEventListener("keydown", keyHandler);
+  // });
 
   return (
     <>

@@ -29,7 +29,7 @@ export async function DELETE(req,{params})
 export async function PATCH(req,{params}){
     try {
         const { name, type } = await req.json();
-        // console.log(name,type);
+        console.log(name,type);
         const user=await currentUser();
         const userm=await User.findOne({userId:user.id})
         if(!userm)
