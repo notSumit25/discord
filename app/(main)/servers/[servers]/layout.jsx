@@ -12,7 +12,12 @@ export default async function ChannelLayout({children, params}){
     const server = await Server.findOne({_id:params.servers})
     const users = await Server.findOne({_id:params.servers}).populate('users.userId');
     const usersinfo=await users.users;
-    const Member = usersinfo.map(user => user.userId.username);
+    //members
+    const member=usersinfo.filter(user=> user.role =='Member')
+    const Member = member.map(user => user.userId.username);
+    //admin
+    const admin=usersinfo.filter(user=> user.role =='Admin')
+    const Admin = admin.map(user => user.userId.username);
     console.log(Member)
     if(!server){
         return redirect('/');
@@ -27,12 +32,27 @@ export default async function ChannelLayout({children, params}){
                 {children}
             </main>
             <div className="min-h-screen flex flex-col w-60 bg-[#2b2d31] sticky items-center py-4">
-                Members
-                {Member.map((item)=>(
+                {Member.length>0 && (
+                    <div>
+                         Members
+                         {Member.map((item)=>(
+                        <div key={item}>
+                           {item}
+                        </div>
+                      ))}
+                    </div>
+                )}
+               {Admin.length>0 && (
+                    <div>
+                          
+               Admin
+               {Admin.map((item)=>(
                <div key={item}>
                   {item}
                </div>
              ))}
+                    </div>
+                )}
             </div>
             
         </div>
