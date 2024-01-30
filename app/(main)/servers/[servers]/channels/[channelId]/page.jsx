@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const page = () => {
   return (
-    <div className='h-full w-full bg-inherit'>
-      hello
+    <div className="h-full w-full bg-inherit">
+      Hello
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

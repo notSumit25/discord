@@ -65,13 +65,19 @@ export async function POST(req) {
 export async function GET(req){
   try {
     await connect();
-    const reqBody = await req.json();
-    console.log(reqBody);
-    const { serverId } = reqBody;
-    const server=await Server.findById(serverId);
-    return new NextResponse.json(server);
+    if (req.body) {
+      const reqBody = await req.json();
+      console.log(reqBody);
+      const { serverId } = reqBody;
+      const server = await Server.findById(serverId);
+      console.log(server);
+      return NextResponse({server});
+    } else {
+      console.log("[SERVERS_GETs] Empty request body");
+      return new NextResponse({message: "Empty request body"});
+    }
   } catch (error) {
-    console.log("[SERVERS_GET]", error);
-    return new NextResponse.json({message: "Internal Error"}, { status: 500 });
+    console.log("[SERVERS_GETs]", error);
+    return new NextResponse({message: "Internal Error"});
   }
 }
