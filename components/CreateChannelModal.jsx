@@ -67,7 +67,7 @@ const CreateChannel = ({param}) => {
             onBlur={() => setModalOpen(false)}
             className="w-full max-w-[630px] rounded-[20px] bg-[#1e1f22] px-8 py-12 text-center md:px-[70px] md:py-[60px]"
           >
-            <form className="w-full flex flex-col p-2 mx-auto" onSubmit={handleSubmit}>
+            <form className="w-full flex flex-col p-2 mx-auto" >
                 <label>Channel Name</label>
                 <input placeholder="Enter Channel Name" className="text-black px-2 py-1 my-4" value={name} onChange={(e)=>{setName(e.target.value)}} type="text" />
                 <select value={type} onChange={(e)=>{setType(e.target.value)}} className="text-black px-2 py-1" name="Type" id="Type">
@@ -76,7 +76,7 @@ const CreateChannel = ({param}) => {
                     <option value="Audio">Audio</option>
                     <option value="Video">Video</option>
                 </select>
-                <button className="px-4 py-2 rounded bg-green-400 w-40 text-white mt-3 mx-auto" type="submit">Submit</button>
+                <button className="px-4 py-2 rounded bg-green-400 w-40 text-white mt-3 mx-auto" onClick={handleSubmit}>Submit</button>
             </form>
           </div>
         </div>
