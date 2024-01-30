@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import { User } from "@/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
+import { Channel } from "@/models/channelModel";
 
 await connect();
 export async function POST(req) {
@@ -23,6 +24,30 @@ export async function POST(req) {
       servername,
       serverpic,
     });
+    const newchannel = await Channel.create({
+      serverId:newServer._id,
+      channelName:"general",
+      type:"TEXT", 
+      users:[
+      {
+        userId:userm._id,
+        role:"ADMIN"
+      } 
+      ]
+    }
+    );
+    const Server_Channel_update=await Server.findByIdAndUpdate(
+      newServer._id,
+      {
+        $push: { channels: newchannel }
+      }
+    );    
+    const User_channel_update = await User.findOneAndUpdate(
+      { userId: user.id },
+      {
+        $push: { channel: newchannel }
+      }
+    );    
     const User_server_update = await User.findOneAndUpdate(
       { userId: user.id },
       {
