@@ -1,13 +1,36 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import { currentUser } from '@clerk/nextjs';
 
 
 const EditServer = ({param}) => {
-
-  console.log(param)
+  console.log(param);
+    const getServer=async(param)=>{
+  try {
+    const response= await axios.get('/api/servers', {
+        serverId: param
+    });
+    return response;
+  } catch (error) {
+    console.log(error)
+  }
+    }
+    console.log(param);
+    async function fetchData() {
+      try {
+        const server = await getServer(param);
+        setName(server.servername)
+        setPic(server.serverpic)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  
   const [Modal,setModal]=useState(false);
+    
      const [name,setName]=useState("")
      const [pic,setPic]=useState("")
 
@@ -23,7 +46,7 @@ const EditServer = ({param}) => {
             })
 
         }catch(err){
-
+                console.log(err);
         }
      }
      const handleImageChange= (event) => {

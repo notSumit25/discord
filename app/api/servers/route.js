@@ -65,8 +65,11 @@ export async function POST(req) {
 export async function GET(req){
   try {
     await connect();
-    const servers = await Server.find({});
-    return new NextResponse(servers);
+    const reqBody = await req.json();
+    console.log(reqBody);
+    const { serverId } = reqBody;
+    const server=await Server.findById(serverId);
+    return new NextResponse.json(server);
   } catch (error) {
     console.log("[SERVERS_GET]", error);
     return new NextResponse.json({message: "Internal Error"}, { status: 500 });
