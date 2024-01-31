@@ -27,7 +27,7 @@ export async function PATCH(req,{params}){
        }
        const {servername,serverpic}=await req.json();
        const server=await Server.findOneAndUpdate({_id:params.serverId},{servername:servername,serverpic:serverpic})
-       return NextResponse(`${servername} Updated`);
+       return new NextResponse(`${servername} Updated`);
    
     } catch (error) {
        console.log("[SERVER_ID_UPDATED]", error);

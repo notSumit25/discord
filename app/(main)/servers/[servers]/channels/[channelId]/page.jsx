@@ -1,12 +1,11 @@
-import Chat from '@/components/Chat'
-import React from 'react'
+import React from "react";
 
 const page = ({params}) => {
   return (
-    <div className='h-full w-full bg-inherit'>
-      <Chat params={params}/>
+    <div className="h-full w-full bg-inherit">
+      Hello
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
