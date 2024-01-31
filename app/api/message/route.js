@@ -4,10 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import { User } from "@/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
-import { Server } from "@/models/serverModel";
+import Server from 'next/server';
+
 import { useParams } from "next/navigation";
 import { Message } from "@/models/messageModel";
-
+import {json} from 'next'
 
 await connect();
 export async function POST(req) {
@@ -27,8 +28,7 @@ export async function POST(req) {
        channel:channelId
       }
       );
-     
-    return new NextResponse(newMesage);
+      return Server.NextResponse.json(newMesage)
   } catch (error) {
     console.log("[Message_POST]", error);
     return new NextResponse({message: "Internal Error"}, { status: 500 });

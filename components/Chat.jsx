@@ -29,15 +29,14 @@ const Chat = ({params,user}) => {
         channel: channelId
       });
       setChat("");
+      console.log(response.data);
       setMessage([...message, response.data]);
-      console.log('Message is sent');
-      console.log(message);
     }
   }
   return (
     <div className='flex flex-col h-screen '>
     <div class="flex-grow">
-       <ScrollableChat message={message} userId={user}/>
+       <ScrollableChat message={message} user={user}/>
     </div>
     <input
       type='text'

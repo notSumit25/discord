@@ -8,7 +8,7 @@ const page = async({params}) => {
   const userm = await User.findOne({ userId: user.id });
 
   const userId=userm._id;
-  console.log(userId);
+
   return (
     <div className="h-full w-full bg-inherit">
       <Chat params={params} user={userId} />
