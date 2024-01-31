@@ -62,7 +62,7 @@ export async function POST(req) {
   }
 }
 
-export async function GET(req){
+export async function PUT(req){
   try {
     await connect();
     if (req.body) {

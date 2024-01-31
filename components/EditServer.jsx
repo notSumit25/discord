@@ -33,7 +33,6 @@ const EditServer = ({param}) => {
 
   
   const [Modal,setModal]=useState(false);
-    
      const [name,setName]=useState("")
      const [pic,setPic]=useState("")
 
