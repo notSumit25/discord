@@ -1,9 +1,10 @@
+import Chat from '@/components/Chat'
 import React from 'react'
 
-const page = () => {
+const page = ({params}) => {
   return (
     <div className='h-full w-full bg-inherit'>
-      hello
+      <Chat params={params}/>
     </div>
   )
 }
