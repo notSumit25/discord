@@ -6,28 +6,31 @@ import { currentUser } from '@clerk/nextjs';
 
 
 const EditServer = ({param}) => {
-  console.log(param);
-    const getServer=async(param)=>{
-  try {
-    const response= await axios.get('/api/servers', {
-        serverId: param
-    });
-    return response;
-  } catch (error) {
-    console.log(error)
-  }
-    }
-    console.log(param);
-    async function fetchData() {
+  const getServer = async (param) => {
       try {
-        const server = await getServer(param);
-        setName(server.servername)
-        setPic(server.serverpic)
+          const response = await axios.get(`/api/servers/${param}`);
+          return response.data;
       } catch (error) {
-        console.error(error);
+          console.log(error);
       }
-    }
-    fetchData();
+  }
+
+  async function fetchData() {
+      try {
+          const server = await getServer(param);
+          if (server) {
+              setName(server.servername);
+              setPic(server.serverpic);
+          } else {
+              console.error('Server is undefined');
+          }
+      } catch (error) {
+          console.error(error);
+      }
+  }
+
+  fetchData();
+
   
   const [Modal,setModal]=useState(false);
     
