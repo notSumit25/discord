@@ -7,10 +7,10 @@ const page = async({params}) => {
   const user = await currentUser();
   const userm = await User.findOne({ userId: user.id });
 
-  const userId=userm._id;
+  const userId=userm._id.toString();
 
   return (
-    <div className="h-full w-full bg-inherit">
+    <div className="w-full bg-inherit">
       <Chat params={params} user={userId} />
     </div>
   );

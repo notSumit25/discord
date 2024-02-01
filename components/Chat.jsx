@@ -34,15 +34,15 @@ const Chat = ({params,user}) => {
     }
   }
   return (
-    <div className='flex flex-col h-screen '>
-    <div class="flex-grow">
+    <div className='flex flex-col min-h-screen relative'>
+    <div className="flex-grow">
        <ScrollableChat message={message} user={user}/>
     </div>
     <input
       type='text'
       ref={inputRef}
       value={Chat}
-      className="w-[850px] p-4 m-2 mb-3 bg-gray-600 rounded h-[15px]"
+      className="w-[850px] p-4 m-2 mb-3 bg-gray-600 rounded h-[15px] fixed bottom-0 mt-2"
       placeholder="#Message"
       onChange={(e) => setChat(e.target.value)}
       onKeyDown={handleKeyPress}
