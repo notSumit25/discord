@@ -84,7 +84,7 @@ const Dropdown = ({name,code,param}) => {
                     <InviteModal code={code} />
                     <DeleteServer param={param} />
                     <CreateChannel param={param} />
-                    <EditServer param={param}/>
+                    {/* <EditServer param={param}/> */}
                   </div>
                 </div>
               </div>

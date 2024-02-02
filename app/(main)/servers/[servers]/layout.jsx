@@ -16,7 +16,7 @@ export default async function ChannelLayout({children, params}){
     const Member = member.map(user => user.userId.username);
     const admin=usersinfo.filter(user=> user.role =='Admin')
     const Admin = admin.map(user => user.userId.username);
-    console.log(Member)
+    // console.log(Member)
     if(!server){
         return redirect('/');
     }

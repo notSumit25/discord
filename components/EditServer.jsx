@@ -11,7 +11,6 @@ const EditServer = ({param}) => {
           const response = await axios.get(`/api/servers/${param}`);
           console.log(response);
           return response.data;
-          
       } catch (error) {
           console.log(error);
       }

@@ -6,15 +6,16 @@ import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 const EditProfileModal = () => {
      const [Modal,setModal]=useState(false);
      const [name,setName]=useState("")
-     const [pic,setPic]=useState("")
+     const [image,setImage]=useState("")
 
      const handleSubmit=async(e)=>{
         e.preventDefault();
         try{
             await axios.patch('/api/users',{
                 username:name,
-                pic:pic
+                pic:image
             }).then(()=>{
+              setImage("");
               setModal(false);
             })
 
@@ -76,7 +77,7 @@ const EditProfileModal = () => {
           endpoint="serverImage"
           onClientUploadComplete={(res) => {
             console.log("Files: ", res);
-            setPic(res?.[0].url)
+            setImage(res?.[0].url);
             console.log(image);
             alert("Upload Completed");
           }}

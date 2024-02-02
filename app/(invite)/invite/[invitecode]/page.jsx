@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async ({ params }) => {
-  console.log(params);
+  // console.log(params);
   const profile = await currentUsers();
   if (!profile) {
     return redirectToSignIn();
@@ -18,7 +18,7 @@ const Page = async ({ params }) => {
     users: { $elemMatch: { userId: profile.userId } } // Use $elemMatch for nested array search
   });
   // console.log(exist);
-  console.log("you are in server")
+  // console.log("you are in server")
   if (exist) {
     return redirect(`/servers/${exist._id}`);
   }
