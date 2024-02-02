@@ -8,7 +8,7 @@ import Server from 'next/server';
 
 import { useParams } from "next/navigation";
 import { Message } from "@/models/messageModel";
-import {json} from 'next'
+// import {json} from 'next'
 
 await connect();
 export async function POST(req) {

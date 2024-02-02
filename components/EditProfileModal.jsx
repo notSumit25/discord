@@ -17,16 +17,17 @@ const EditProfileModal = () => {
             }).then(()=>{
               setImage("");
               setModal(false);
+              window.location.reload();
             })
 
         }catch(err){
-
+          console.log('Edit Profile Modal: ',err);
         }
      }
      const handleImageChange= (event) => {
       const file = event.target.files[0];
       if (file) {
-        setPic(file);
+        setImage(file);
       }
     };
     const handleCloseModal = (e) => {
