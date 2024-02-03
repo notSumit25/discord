@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import axios from "axios";
 import ScrollableChat from './ScrollableChat';
 
-const Chat = ({params,user}) => {
+const Chat = ({params,user}) => { 
   const [Chat,setChat]=useState("");
-  const {servers,channelId}=params;//serverID ,ChannelId
+  const {servers,channelId}=params;
   const [message,setMessage]=useState([])
     const inputRef = useRef(null);
     useEffect(() => {

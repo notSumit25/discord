@@ -15,7 +15,7 @@ const EditProfileModal = () => {
                 username:name,
                 pic:image
             }).then(()=>{
-              setImage("");
+              // setImage("");
               setModal(false);
               window.location.reload();
             })
