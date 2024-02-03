@@ -14,9 +14,9 @@ const DeleteChannel = ({channelId}) => {
         try {
             await axios.delete(`/api/channels/${channelId}`).then(()=>{
                 console.log("Channel Deleted")
-                window.location.reload();
                 setModal(false);
                 setShowModal(false);
+                return redirect('/');
             });
            
         } catch (error) {

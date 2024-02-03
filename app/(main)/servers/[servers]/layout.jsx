@@ -39,6 +39,17 @@ export default async function ChannelLayout({children, params}){
                 {children}
             </main>
             <div className="min-h-screen flex flex-col w-60 bg-[#2b2d31] fixed right-0 items-start py-4 px-4 z-50 text-white">
+            {Admin.length > 0 && (
+                    <div className="my-4">
+                        <h2 className="text-lg font-bold mb-2">Admin</h2>
+                        {Admin.map((item) => (
+                            <div key={item.userId} className="flex items-center mb-2">
+                                <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
+                                <div>{item.username}</div>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 {Member.length > 0 && (
                     <div>
                         <h2 className="text-lg font-bold mb-2">Members</h2>
@@ -50,17 +61,7 @@ export default async function ChannelLayout({children, params}){
                         ))}
                     </div>
                 )}
-                {Admin.length > 0 && (
-                    <div className="mt-4">
-                        <h2 className="text-lg font-bold mb-2">Admin</h2>
-                        {Admin.map((item) => (
-                            <div key={item.userId} className="flex items-center mb-2">
-                                <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
-                                <div>{item.username}</div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                
             </div>
             
         </div>
