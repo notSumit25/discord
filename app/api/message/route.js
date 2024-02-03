@@ -5,7 +5,6 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { User } from "@/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
 import Server from 'next/server';
-
 import { useParams } from "next/navigation";
 import { Message } from "@/models/messageModel";
 import {json} from 'next'
@@ -14,18 +13,19 @@ await connect();
 export async function POST(req) {
   try {
     const reqBody= await req.json();
-    const { channelId,serverId,content } = reqBody;
+
+    const { channel,server,content } = reqBody;
     const user = await currentUser();
     const userm = await User.findOne({ userId: user.id });
     if (!userm) {
       return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
     }
-   
+  
       const newMesage = await Message.create({
        sender:userm._id,
        content:content,
-       server:serverId,
-       channel:channelId
+       server:server,
+       channel:channel
       }
       );
       return Server.NextResponse.json(newMesage)
@@ -35,3 +35,23 @@ export async function POST(req) {
   }
 }
 
+export async function PUT(req) {
+  try {
+    const reqBody= await req.json();
+ 
+    const { channel} = reqBody;
+    const user = await currentUser();
+    const userm = await User.findOne({ userId: user.id });
+    if (!userm) {
+      return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
+    }
+   
+    const messages = await Message.find({
+    channel: channel,
+    });
+      return Server.NextResponse.json(messages)
+  } catch (error) {
+    console.log("[Message_GET]", error);
+    return new NextResponse({message: "Internal Error"}, { status: 500 });
+  }
+}

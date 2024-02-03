@@ -19,6 +19,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-scrollable-feed": "^2.0.1",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
     "uploadthing": "^6.1.1",
     "uuid": "^9.0.1"
   },

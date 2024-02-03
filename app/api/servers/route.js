@@ -1,9 +1,10 @@
 import { connect } from "@/lib/db.js";
 import { Server } from "@/models/serverModel.js";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import { User } from "@/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
+
 import { Channel } from "@/models/channelModel";
 
 await connect();
@@ -62,20 +63,18 @@ export async function POST(req) {
   }
 }
 
-export async function PUT(req){
-  try {
-    await connect();
-    if (req.body) {
+export async function GET(req){
+
+    try{
       const reqBody = await req.json();
       console.log(reqBody);
       const { serverId } = reqBody;
       const server = await Server.findById(serverId);
       console.log(server);
-      return NextResponse({server});
-    } else {
-      console.log("[SERVERS_GETs] Empty request body");
-      return new NextResponse({message: "Empty request body"});
-    }
+      return  new NextResponse(
+        JSON.stringify(server),
+        { status: 401, headers: { 'content-type': 'application/json' } }
+      );
   } catch (error) {
     console.log("[SERVERS_GETs]", error);
     return new NextResponse({message: "Internal Error"});

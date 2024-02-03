@@ -9,7 +9,20 @@ const EditServer = ({param}) => {
   const [Modal,setModal]=useState(false);
      const [name,setName]=useState("")
      const [pic,setPic]=useState("")
+      const fetchdetails=async(e)=>{
+        e.preventDefault();
+        try{
+            const response=await axios.get(`/api/servers/${param}`,{
+            }).then(()=>{  
+               const server=response.data;
+               setName(server.servername);
+               setPic(server.serverpic);
+            })
 
+        }catch(err){
+                console.log(err);
+        }
+      }
      const handleSubmit=async(e)=>{
         e.preventDefault();
         try{

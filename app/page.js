@@ -14,6 +14,7 @@ export default async function Home() {
   if (user.server) {
     return redirect(`/servers/${user.server[0].id}`);
   }
+  
   return (
     <div>
       <UserButton afterSignOutUrl="/" />

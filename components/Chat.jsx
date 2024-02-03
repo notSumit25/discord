@@ -3,19 +3,31 @@ import React, { useRef, useState } from 'react'
 import { useEffect } from 'react';
 import axios from "axios";
 import ScrollableChat from './ScrollableChat';
+import SocketService from '@/pages/api/socket';
 
 const Chat = ({params,user}) => {
   const [Chat,setChat]=useState("");
   const {servers,channelId}=params;//serverID ,ChannelId
+  const socketServiceInstance = new SocketService();
+  socketServiceInstance.initListeners();
+  const io=socketServiceInstance.io;
+  io.emit('userConnected', { socketId: socket.id });
   const [message,setMessage]=useState([])
     const inputRef = useRef(null);
     useEffect(() => {
         inputRef.current.focus();
+        const fetchchat=()=>{
+             fetchats();
+        }
+        fetchchat();
     }, []);
-    const fetchats =async(e)=>{
-      e.preventDefault();
+    const fetchats =async()=>{
+
       try{
-         
+        const response = await axios.put('/api/message', {
+          channel: channelId
+        });
+        setMessage([...message, ...response.data]);
       }
       catch(error){
           console.log(error);
@@ -23,19 +35,20 @@ const Chat = ({params,user}) => {
     }
    const handleKeyPress = async(e) => {
     if (e.key === 'Enter') {
+      console.log(channelId);
       const response = await axios.post('/api/message', {
         content: Chat,
         server: servers,
         channel: channelId
       });
       setChat("");
-      console.log(response.data);
+      // console.log(response.data);
       setMessage([...message, response.data]);
     }
   }
   return (
     <div className='flex flex-col h-screen '>
-    <div class="flex-grow">
+    <div class="flex-grow overflow-y-auto scrollbar-hide">
        <ScrollableChat message={message} user={user}/>
     </div>
     <input
