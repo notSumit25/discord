@@ -3,15 +3,10 @@ import React, { useRef, useState } from 'react'
 import { useEffect } from 'react';
 import axios from "axios";
 import ScrollableChat from './ScrollableChat';
-import SocketService from '@/pages/api/socket';
 
-const Chat = ({params,user}) => {
+const Chat = ({params,user}) => { 
   const [Chat,setChat]=useState("");
   const {servers,channelId}=params;//serverID ,ChannelId
-  const socketServiceInstance = new SocketService();
-  socketServiceInstance.initListeners();
-  const io=socketServiceInstance.io;
-  io.emit('userConnected', { socketId: socket.id });
   const [message,setMessage]=useState([])
     const inputRef = useRef(null);
     useEffect(() => {
@@ -47,16 +42,16 @@ const Chat = ({params,user}) => {
     }
   }
   return (
-    <div className='flex flex-col h-screen '>
-    <div class="flex-grow overflow-y-auto scrollbar-hide">
+    <div className='flex flex-col min-h-screen relative'>
+    <div className="flex-grow">
        <ScrollableChat message={message} user={user}/>
     </div>
     <input
       type='text'
       ref={inputRef}
       value={Chat}
-      className="w-[850px] p-4 m-2 mb-3 bg-gray-600 rounded h-[15px]"
-      placeholder="#Message"
+      className="w-[850px] p-4 m-2 mb-3 bg-gray-600 rounded h-[15px] fixed bottom-0 mt-2"
+      placeholder= '#Message'
       onChange={(e) => setChat(e.target.value)}
       onKeyDown={handleKeyPress}
     />

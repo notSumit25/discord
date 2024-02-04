@@ -6,6 +6,7 @@ import DeleteServer from "./DeleteServer";
 import CreateChannel from "./CreateChannelModal";
 import axios from "axios";
 import EditServer from "./EditServer";
+import LeaveServer from "./LeaveServer";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
@@ -31,7 +32,7 @@ let useClickOutside = (handler) => {
 
 
 
-const Dropdown = ({name,code,param}) => {
+const Dropdown = ({name,code,param,admin}) => {
   
   const getChannels=async()=>{
     try {
@@ -40,9 +41,7 @@ const Dropdown = ({name,code,param}) => {
       console.log(error);
     }
   }
-  useEffect(()=>{
-    
-  });
+  
 
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -82,9 +81,10 @@ const Dropdown = ({name,code,param}) => {
                     }`}
                   >
                     <InviteModal code={code} />
-                    <DeleteServer param={param} />
+                   {admin==1 && <DeleteServer param={param} />} 
                     <CreateChannel param={param} />
                     <EditServer param={param}/>
+                    <LeaveServer param={param}/>
                   </div>
                 </div>
               </div>

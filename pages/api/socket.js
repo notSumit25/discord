@@ -6,7 +6,7 @@ class SocketService {
     this._io = new Server({
       cors: {
         allowedHeaders: ["*"],
-        origin: "*",
+        origin: "http://localhost:3000",
       },
     });
     sub.subscribe("MESSAGES");

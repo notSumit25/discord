@@ -1,25 +1,26 @@
-'use client'
 import React from 'react'
 import ScrollableFeed from 'react-scrollable-feed'
 
-const ScrollableChat = ({ message, user }) => {
-  const isSameSender = (m) => m.sender === user;
+const ScrollableChat = ({message, user}) => {
+  const isSameSender = (m, user) => {
+    return m.sender === user;
+  }
 
   return (
-      <ScrollableFeed>
-          <div className="flex flex-col-reverse flex-1 overflow-y-auto scrollbar-hide p-4">
-              {message.map((m, i) => (
-                  <div key={i} className="mb-2">
-                      <div className={`flex ${isSameSender(m) ? 'justify-end' : 'justify-start'}`}>
-                          <div className={`p-2 rounded ${isSameSender(m) ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}>
-                              {m.content}
-                          </div>
-                      </div>
-                  </div>
-              ))}
+    <ScrollableFeed forceScroll={true}>
+      <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10">
+        {message.slice(0).reverse().map((m, i) => (
+          <div key={i} className="mb-2 flex flex-col">
+            <div className={`flex ${isSameSender(m, user) ? 'justify-start' : 'justify-end'}`}>
+              <div className={`p-2 rounded ${isSameSender(m, user) ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}>
+                {m.content}
+              </div>
+            </div>
           </div>
-      </ScrollableFeed>
-  );
+        ))}
+      </div>
+    </ScrollableFeed>
+  )
 }
 
 export default ScrollableChat;

@@ -62,7 +62,7 @@ const handleModal=async(e)=>{
   return (
     <div>
       <div
-        className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center"
+        className="w-10 h-10 rounded-full bg-[#313338] text-[#249e57] flex items-center justify-center hover:bg-[#249e57] hover:text-[#313338] cursor-pointer transition-transform transform hover:scale-110"
         onClick={() => setShowModal(true)}
       >
         <svg

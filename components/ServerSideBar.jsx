@@ -6,14 +6,21 @@ import { FetchChannel } from "@/lib/fetch";
 import UserProfile from "./UserProfile";
 import DeleteChannel from "./DeleteChannel";
 import Link from "next/link";
+import { currentUser } from "@clerk/nextjs";
+import { Server } from "@/models/serverModel";
 
 const ServerSideBar = async ({ name, code, param }) => {
   const TextChannels = await FetchChannel(param);
- 
-
+  const user=await currentUser();
+  let admin=0;
+  const isadmin=await Server.exists({_id:param,ServerAdmin:user.id})  
+  if(isadmin)
+  {
+    admin=1;
+  }
   return (
     <div className="flex flex-col bg-[#2b2d31] w-full min-h-screen p-2 justify-between">
-      <Dropdown name={name} code={code} param={param} />
+      <Dropdown name={name} code={code} param={param} admin={admin}/>
       <div className="w-full h-auto flex flex-col justify-start flex-grow">
         {TextChannels.length > 0 && (
           <div className="text-sm mt-6 mb-3 text-zinc-300 font-semibold">
