@@ -5,6 +5,7 @@ import axios from "axios";
 import ScrollableChat from './ScrollableChat';
 
 const Chat = ({params,user}) => { 
+ 
   const [Chat,setChat]=useState("");
   const {servers,channelId}=params;//serverID ,ChannelId
   const [message,setMessage]=useState([])
