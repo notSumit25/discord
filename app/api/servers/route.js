@@ -1,6 +1,6 @@
 import { connect } from "@/lib/db.js";
 import { Server } from "@/models/serverModel.js";
-import { NextRequest } from "next/server";
+import { NextRequest,NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import { User } from "@/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";

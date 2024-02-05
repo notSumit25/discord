@@ -6,18 +6,18 @@ import { User } from "@/models/userModel";
 
 //delete server
 
-export async function GET(req, { params }) {
-   try {
-      const server = await Server.findOne({ _id: params.serverId });
-      if (!server) {
-         return new NextResponse("Server not found", { status: 404 });
-      }
-      return new NextResponse(JSON.stringify(server));
-   } catch (error) {
-      console.log("[SERVER_ID_GET]", error);
-      return new NextResponse("Internal Error", { status: 500 });
-   }
-}
+// export async function GET(req, { params }) {
+//    try {
+//       const server = await Server.findOne({ _id: params.serverId });
+//       if (!server) {
+//          return new NextResponse("Server not found", { status: 404 });
+//       }
+//       return new NextResponse(JSON.stringify(server));
+//    } catch (error) {
+//       console.log("[SERVER_ID_GET]", error);
+//       return new NextResponse("Internal Error", { status: 500 });
+//    }
+// }
 
 
 export async function DELETE(req,{params}){

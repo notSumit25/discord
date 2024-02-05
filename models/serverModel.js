@@ -15,6 +15,9 @@ const serverSchema = new mongoose.Schema(
           type: String,
           default: "Member",
         },
+        SpecialRole:{
+          type: String,
+        }
       },
     ],
     channels: [

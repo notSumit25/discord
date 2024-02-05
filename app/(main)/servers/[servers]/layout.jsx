@@ -1,29 +1,36 @@
+import AdminModal from "@/components/AdminModal";
 import ServerSideBar from "@/components/ServerSideBar";
 import { currentUsers } from "@/lib/currentUser";
 import { Server } from "@/models/serverModel";
 import { redirectToSignIn } from "@clerk/nextjs";
 import Image from "next/image";
+import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 export default async function ChannelLayout({children, params}){
     const profile = await currentUsers();
+    const userc=await currentUser();
     if(!profile){
         return redirectToSignIn();
     }
+    const isadmin=await Server.exists({_id:params.servers,ServerAdmin:userc.id})
     const server = await Server.findOne({_id:params.servers})
     const users = await Server.findOne({_id:params.servers}).populate('users.userId');
     const usersinfo=await users.users;
+
     const member = usersinfo.filter(user => user.role === 'Member');
     const Member = member.map(user => ({
         username: user.userId.username,
         pic: user.userId.pic,
         userId: user.userId._id,
+        SpecialRole:user.SpecialRole
     }));
     const admin = usersinfo.filter(user => user.role === 'Admin');
     const Admin = admin.map(user => ({
         username: user.userId.username,
         pic: user.userId.pic,
         userId: user.userId._id,
+        SpecialRole:user.SpecialRole
     }));
     // console.log(Member)
     if(!server){
@@ -45,7 +52,8 @@ export default async function ChannelLayout({children, params}){
                         {Admin.map((item) => (
                             <div key={item.userId} className="flex items-center mb-2">
                                 <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
-                                <div>{item.username}</div>
+                                <div className="m-2">{item.username}</div>
+                                <span className="m-2 text-gray-400  ">{item.SpecialRole}</span>
                             </div>
                         ))}
                     </div>
@@ -57,6 +65,8 @@ export default async function ChannelLayout({children, params}){
                             <div key={item.userId} className="flex items-center mb-2">
                                 <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
                                 <div>{item.username}</div>
+                                <span className="m-2 text-gray-400">{item.SpecialRole}</span>
+                                {isadmin && <AdminModal ServerId={params.servers} userId={item.userId}/>}
                             </div>
                         ))}
                     </div>
