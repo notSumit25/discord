@@ -13,17 +13,20 @@ export default async function ChannelLayout({children, params}){
     const server = await Server.findOne({_id:params.servers})
     const users = await Server.findOne({_id:params.servers}).populate('users.userId');
     const usersinfo=await users.users;
+    // console.log(usersinfo[0].userId.username);
     const member = usersinfo.filter(user => user.role === 'Member');
+    // console.log(member)
     const Member = member.map(user => ({
-        username: user.userId.username,
-        pic: user.userId.pic,
-        userId: user.userId._id,
+        username: user.userId?.username,
+        pic: user.userId?.pic,
+        userId: user.userId?._id,
     }));
     const admin = usersinfo.filter(user => user.role === 'Admin');
+    // console.log(admin)
     const Admin = admin.map(user => ({
-        username: user.userId.username,
-        pic: user.userId.pic,
-        userId: user.userId._id,
+        username: user.userId?.username,
+        pic: user.userId?.pic,
+        userId: user.userId?._id,
     }));
     // console.log(Member)
     if(!server){

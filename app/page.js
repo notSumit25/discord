@@ -11,8 +11,9 @@ export default async function Home() {
   //   ServerAdmin: profile.userId,
   // }).populate('server');
   const user = await User.findById(profile.id).populate('server');
-  if (user.server) {
-    return redirect(`/servers/${user.server[0].id}`);
+  // console.log(user);
+  if (user.server.length > 0) {
+    return redirect(`/servers/${user.server[0].id}`); 
   }
   
   return (
