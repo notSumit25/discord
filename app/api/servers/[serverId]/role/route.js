@@ -14,7 +14,7 @@ export async function POST(req,{params}) {
     const reqBody = await req.json();
   
     const { role,userId } = reqBody;
-    const user = await currentUser();
+      const user = await currentUser();
     const userm = await User.findOne({ userId: user.id });
    
     if (!userm) {
@@ -24,15 +24,16 @@ export async function POST(req,{params}) {
     {
         return new NextResponse.json({message:"ServerId is required"}, { status: 401 });
     }
-    const newServer = await Server.findOneAndUpdate(
+    const newServer = await Server.findOne(
         {
             _id:params.serverId,
             "users.userId":userId
         }
-        , 
-            { users:{SpecialRole: role} },
-         { new: true }
     )
+    const userToUpdate = newServer.users.find(user => user.userId.equals(userId));
+    userToUpdate.SpecialRole= role;
+    console.log(userToUpdate);
+    newServer.save();
    
     console.log('Server Updated Successfully')
     return new NextResponse('Server Updated Successfully')
@@ -46,7 +47,6 @@ export async function PATCH(req,{params}){
 
     try{
       const reqBody = await req.json();
-      console.log(reqBody);
       const { userId } = reqBody;
       const user = await currentUser();
       const userm = await User.findOne({ userId: user.id });
@@ -58,13 +58,19 @@ export async function PATCH(req,{params}){
       {
           return new NextResponse.json({message:"ServerId is required"}, { status: 401 });
       }
-      console.log(userId)
+ 
       const updatedServer = await Server.findOneAndUpdate(
         { _id: params.serverId },
         { $pull: { users: { userId: userId } } },
         { new: true }
-      ).exec();
-
+    ).exec();
+ 
+    const User_server_update = await User.findOneAndUpdate(
+      { userId: user.id },
+      {
+        $pull: { server: updatedServer._id }
+      }
+    );  
             return new NextResponse('Server Updated Successfully')
   } catch (error) {
     console.log("[SERVERS_GETs]", error);

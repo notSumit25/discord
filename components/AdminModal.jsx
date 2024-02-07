@@ -29,7 +29,6 @@ const AdminModal = ({ServerId,userId}) => {
   const handleSubmit=async (e)=>{
     e.preventDefault();
     try{
-      
       await axios.post(`/api/servers/${ServerId}/role`,{
         role:role,
         userId:userId
