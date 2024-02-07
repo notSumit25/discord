@@ -28,7 +28,7 @@ const EditServer = ({ param }) => {
       const server = await getServer(param);
       if (server) {
         setName(server.servername);
-        setPic(server.serverpic);
+        setImage(server.serverpic);
       } else {
         console.error('Server is undefined');
       }
