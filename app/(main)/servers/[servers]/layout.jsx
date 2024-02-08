@@ -32,7 +32,7 @@ export default async function ChannelLayout({children, params}){
         pic: user.userId?.pic,
         userId: user.userId?._id,
     }));
-    // console.log(Member)
+    // console.log(Member);
     if(!server){
         return redirect('/');
     }
@@ -65,7 +65,7 @@ export default async function ChannelLayout({children, params}){
                             <div key={item.userId} className="flex items-center mb-2">
                                 <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
                                 <div>{item.username}</div>
-                                {isadmin && <AdminModal ServerId={params.servers} userId={item.userId}/>}
+                                {isadmin && <AdminModal ServerId={params.servers} userId={item.userId.toString()}/>}
                                 <span className="m-2 text-gray-400">{item.SpecialRole}</span>
                             </div>
                         ))}

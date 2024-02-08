@@ -5,6 +5,7 @@ import { UploadButton, UploadDropzone } from '@/lib/uploadthing';
 import { currentUser } from '@clerk/nextjs';
 
 const EditServer = ({ param }) => {
+  // console.log(param);
   const [Modal, setModal] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
@@ -15,6 +16,7 @@ const EditServer = ({ param }) => {
 
   const getServer = async (param) => {
     try {
+      // console.log(param);
       const response = await axios.get(`/api/servers/${param}`);
       console.log(response);
       return response.data;
