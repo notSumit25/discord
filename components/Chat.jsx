@@ -67,15 +67,15 @@ const Chat = ({ params, user }) => {
       <div className="flex-grow">
         <ScrollableFeed>
           <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10">
-            {/* {message.slice(0).reverse().map((m, i) => (
+            {message.slice(0).reverse().map((m, i) => (
           <div key={i} className="mb-2 flex flex-col">
             <div className={`flex justify-start'}`}>
-              <div className={`p-2 rounded ${isSameSender(m, user) ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}>
-                {m.content}dsa
+              <div className={`p-2 rounded bg-gray-300 text-black`}>
+                {m.content}
               </div>
             </div>
           </div>
-        ))} */}
+        ))}
          
 
             {messages.slice().reverse().map((m, i) => (
