@@ -5,24 +5,22 @@ import axios from "axios";
 import ScrollableFeed from "react-scrollable-feed";
 import { io } from "socket.io-client";
 
+
 const Chat = ({ params, user }) => {
   const isSameSender = (m, user) => {
     return m.sender === user;
   };
   const [socket, setSocket] = useState(undefined);
-
   const [Chat, setChat] = useState("");
   const { servers, channelId } = params; //serverID ,ChannelId
   const [message, setMessage] = useState([]);
   const [sendermessage, setsendermessage] = useState([]);
   const [receivermsg, setreceivermsg] = useState([]);
-  console.log(sendermessage, "sendermessage")
-  console.log(receivermsg, "receivermsg")
+  console.log(sendermessage, "sendermessage",user)
+  console.log(receivermsg, "receivermsg",user)
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
-      console.log(channelId);
       socket.emit("chat message", channelId, Chat);
-      console.log("Send Message", Chat);
       setsendermessage(sendermessage=>[...sendermessage, Chat]);
       const response = await axios.post("/api/message", {
         content: Chat,
@@ -38,11 +36,15 @@ const Chat = ({ params, user }) => {
   useEffect(() => {
     const socket = io("http://localhost:3001");
     setSocket(socket);
+    console.log("chh", channelId);
     socket.emit("joinRoom", channelId);
     socket.on("chat message", (Chat) => {
       console.log(Chat, "real time");
-      setreceivermsg(receivermsg=>[...receivermsg, Chat]);
+      setreceivermsg(receivermsg => [...receivermsg, Chat]);
     });
+    return () => {
+      socket.disconnect();
+    };
   }, []);
   const inputRef = useRef(null);
   useEffect(() => {
@@ -80,7 +82,7 @@ const Chat = ({ params, user }) => {
             {sendermessage.map((m, i) => {
               <div key={i} className="mb-2 flex flex-col">
                 <div className={"flex justify-start"}>
-                  <div className={`p-2 rounded bg-blue-500 text-white`}>
+                  <div className={`p-2 rounded bg-blue-800 text-white`}>
                     {m}
                   </div>
                 </div>
