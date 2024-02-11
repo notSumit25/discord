@@ -4,28 +4,28 @@ import { useEffect } from "react";
 import axios from "axios";
 import ScrollableFeed from "react-scrollable-feed";
 import { io } from "socket.io-client";
+import Image from "next/image";
+import { currentUser } from "@clerk/nextjs";
 
 
-const Chat = ({ params, user }) => {
-  const isSameSender = (m, user) => {
-    return m.sender === user;
-  };
+const Chat = ({ params, user ,clerkuser}) => {
+
   const [socket, setSocket] = useState(undefined);
   const [Chat, setChat] = useState("");
   const { servers, channelId } = params; //serverID ,ChannelId
   const [message, setMessage] = useState([]);
   const [messages, setmessages] = useState([]);
+
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
-      socket.emit("chat message", channelId, Chat);
-      setmessages(messages=>[...messages, Chat]);
+      socket.emit("chat message", channelId, Chat,clerkuser);
+      const newMessage = { content: Chat, senderImage: clerkuser}
+      setmessages(messages=>[...messages, newMessage]);
       const response = await axios.post("/api/message", {
         content: Chat,
         server: servers,
         channel: channelId,
       });
-      setChat("");
-      // console.log(response.data);
       setMessage([...message, response.data]);
     }
   };
@@ -35,9 +35,10 @@ const Chat = ({ params, user }) => {
     setSocket(socket);
     console.log("chh", channelId);
     socket.emit("joinRoom", channelId);
-    socket.on("chat message", (Chat) => {
+    socket.on("chat message", (Chat,pic) => {
       console.log(Chat, "real time");
-      setmessages(messages=>[...messages, Chat]);
+      const newMessage = { content: Chat, senderImage: pic }
+      setmessages(messages=>[...messages, newMessage]);
     });
     return () => {
       socket.disconnect();
@@ -69,7 +70,8 @@ const Chat = ({ params, user }) => {
           <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10">
             {message.slice(0).reverse().map((m, i) => (
           <div key={i} className="mb-2 flex flex-col">
-            <div className={`flex justify-start'}`}>
+            <div className={`flex justify-start items-center mb-2`}>
+            <Image width={100} height={100} alt="pic" src={m.sender.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
               <div className={`p-2 rounded bg-gray-300 text-black`}>
                 {m.content}
               </div>
@@ -81,7 +83,8 @@ const Chat = ({ params, user }) => {
             {messages.slice().reverse().map((m, i) => (
               <div key={i} className="mb-2 flex flex-col">
                 <div className="flex justify-start">
-                  <div className="p-2 rounded bg-gray-300 text-black">{m}</div>
+                <Image width={100} height={100} alt="pic" src={m.senderImage} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
+                  <div className="p-2 rounded bg-gray-300 text-black">{m.content}</div>
                 </div>
               </div>
             ))}

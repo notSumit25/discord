@@ -9,12 +9,13 @@ const page = async({params}) => {
   const userm = await User.findOne({ userId: user.id });
   const channel = await Channel.findOne({ _id: params.channelId });
   // console.log(channel);
+  const userimage=user.imageUrl;
   const userId=userm._id.toString();
 
   return (
     <div className="w-full">
       <div className="border-b-2 w-[990px] border-black h-12 py-7 fixed top-0 z-10 bg-[#313338] flex items-center pl-4">#   {channel.channelName}</div>
-      <Chat params={params} user={userId} />
+      <Chat params={params} user={userId} clerkuser={userimage}/>
     </div>
   );
 };

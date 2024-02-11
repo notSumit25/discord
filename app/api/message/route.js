@@ -22,12 +22,13 @@ export async function POST(req) {
     }
   
       const newMesage = await Message.create({
-       sender:userm._id,
+       sender:userm,
        content:content,
        server:server,
        channel:channel
       }
       );
+      await newMesage.populate('sender');
       return Server.NextResponse.json(newMesage)
   } catch (error) {
     console.log("[Message_POST]", error);
@@ -48,7 +49,8 @@ export async function PUT(req) {
    
     const messages = await Message.find({
     channel: channel,
-    });
+    }).populate('sender');
+  
       return Server.NextResponse.json(messages)
   } catch (error) {
     console.log("[Message_GET]", error);
