@@ -14,14 +14,11 @@ const Chat = ({ params, user }) => {
   const [Chat, setChat] = useState("");
   const { servers, channelId } = params; //serverID ,ChannelId
   const [message, setMessage] = useState([]);
-  const [sendermessage, setsendermessage] = useState([]);
-  const [receivermsg, setreceivermsg] = useState([]);
-  console.log(sendermessage, "sendermessage",user)
-  console.log(receivermsg, "receivermsg",user)
+  const [messages, setmessages] = useState([]);
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
       socket.emit("chat message", channelId, Chat);
-      setsendermessage(sendermessage=>[...sendermessage, Chat]);
+      setmessages(messages=>[...messages, Chat]);
       const response = await axios.post("/api/message", {
         content: Chat,
         server: servers,
@@ -40,7 +37,7 @@ const Chat = ({ params, user }) => {
     socket.emit("joinRoom", channelId);
     socket.on("chat message", (Chat) => {
       console.log(Chat, "real time");
-      setreceivermsg(receivermsg => [...receivermsg, Chat]);
+      setmessages(messages=>[...messages, Chat]);
     });
     return () => {
       socket.disconnect();
@@ -79,19 +76,9 @@ const Chat = ({ params, user }) => {
             </div>
           </div>
         ))} */}
-           {sendermessage.map((m, i) => {
-  return (
-    <div key={i} className="mb-2 flex flex-col">
-      <div className="flex justify-start">
-        <div className="p-2 rounded bg-blue-800 text-white">
-          {m}
-        </div>
-      </div>
-    </div>
-  );
-})}
+         
 
-            {receivermsg.map((m, i) => (
+            {messages.slice().reverse().map((m, i) => (
               <div key={i} className="mb-2 flex flex-col">
                 <div className="flex justify-start">
                   <div className="p-2 rounded bg-gray-300 text-black">{m}</div>
