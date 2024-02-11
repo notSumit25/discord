@@ -79,15 +79,18 @@ const Chat = ({ params, user }) => {
             </div>
           </div>
         ))} */}
-            {sendermessage.map((m, i) => {
-              <div key={i} className="mb-2 flex flex-col">
-                <div className={"flex justify-start"}>
-                  <div className={`p-2 rounded bg-blue-800 text-white`}>
-                    {m}
-                  </div>
-                </div>
-              </div>;
-            })}
+           {sendermessage.map((m, i) => {
+  return (
+    <div key={i} className="mb-2 flex flex-col">
+      <div className="flex justify-start">
+        <div className="p-2 rounded bg-blue-800 text-white">
+          {m}
+        </div>
+      </div>
+    </div>
+  );
+})}
+
             {receivermsg.map((m, i) => (
               <div key={i} className="mb-2 flex flex-col">
                 <div className="flex justify-start">
