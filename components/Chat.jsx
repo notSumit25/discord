@@ -5,44 +5,46 @@ import axios from "axios";
 import ScrollableFeed from "react-scrollable-feed";
 import { io } from "socket.io-client";
 import Image from "next/image";
-import { currentUser } from "@clerk/nextjs";
 
-
-const Chat = ({ params, user ,clerkuser}) => {
-  const isprevsender=(m,i)=>{
-       if(i==0) return true;
-       if(m[i].sendername == m[i-1].sendername) return true;
-       return false;
-  }
+const Chat = ({ params, user, clerkUser }) => {
   const [socket, setSocket] = useState(undefined);
   const [Chat, setChat] = useState("");
-  const { servers, channelId } = params; //serverID ,ChannelId
+  const { servers, channelId } = params;
   const [message, setMessage] = useState([]);
-  const [messages, setmessages] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
-      socket.emit("chat message", channelId, Chat,clerkuser);
-      const newMessage = { content: Chat,sendername:user, senderImage: clerkuser}
-      setmessages(messages=>[...messages, newMessage]);
+      socket.emit("chat message", channelId, Chat, clerkUser, user);
+      const newMessage = {
+        content: Chat,
+        senderName: user,
+        senderImage: clerkUser,
+      };
+      // setMessages((messages) => [...messages, newMessage]);
       const response = await axios.post("/api/message", {
         content: Chat,
         server: servers,
         channel: channelId,
       });
-      setMessage([...message, response.data]);
+      // console.log("response", response);
+      setMessage(message=>[...message, response.data]);
+      console.log("message: ", message);
+      console.log("messages: ", messages);
+      setChat("");
+      // console.log("message", messages);
     }
   };
 
   useEffect(() => {
     const socket = io("http://localhost:3001");
     setSocket(socket);
-    console.log("chh", channelId);
     socket.emit("joinRoom", channelId);
-    socket.on("chat message", (Chat,pic,user) => {
+    socket.on("chat message", (Chat, pic, user) => {
       console.log(Chat, "real time");
-      const newMessage = { content: Chat, sendername:user, senderImage: pic }
-      setmessages(messages=>[...messages, newMessage]);
+      const newMessage = { content: Chat, senderName: user, senderImage: pic };
+      console.log('Messages: ',messages);
+      setMessages((messages) => [...messages, newMessage]);
     });
     return () => {
       socket.disconnect();
@@ -51,12 +53,12 @@ const Chat = ({ params, user ,clerkuser}) => {
   const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
-    const fetchchat = () => {
-      fetchats();
+    const fetchChat = () => {
+      fetchChats();
     };
-    fetchchat();
+    fetchChat();
   }, []);
-  const fetchats = async () => {
+  const fetchChats = async () => {
     try {
       const response = await axios.put("/api/message", {
         channel: channelId,
@@ -70,41 +72,58 @@ const Chat = ({ params, user ,clerkuser}) => {
   return (
     <div className="flex flex-col min-h-screen relative">
       <div className="flex-grow">
-        <ScrollableFeed>
+        {/* <ScrollableFeed> */}
           <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10">
-            {message.slice(0).reverse().map((m, i) => (
-          <div key={i} className="mb-2 flex flex-col">
-            <div className={`flex justify-start items-center mb-2`}>
-
-            <Image width={100} height={100} alt="pic" src={m.sender.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
-            <div>
-             <div className="font-sans text-white text-slate-300 font-thin">{m.sender.username}</div>
-            <div className={`p-2 rounded bg-gray-300 text-black`}>
-                {m.content}
-              </div>
-            </div>
-              
-            </div>
-          </div>
-        ))}
-         
-
-            {messages.slice().reverse().map((m, i) => (
-              <div key={i} className="mb-2 flex flex-col">
-                <div className="flex justify-start">
-                <Image width={100} height={100} alt="pic" src={m.senderImage} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
-                <div>
-                  {isprevsender(m,i)}&&
-                    <div className="font-sans text-white text-slate-300 font-thin">{m.sendername}</div>
-                  
-                <div className="p-2 rounded bg-gray-300 text-black">{m.content}</div>
+            {messages
+              .slice(0)
+              .reverse()
+              .map((m, i) => (
+                <div key={i} className="mb-2 flex flex-col">
+                  <div className="flex justify-start">
+                    <Image
+                      width={100}
+                      height={100}
+                      alt="pic"
+                      src={m.senderImage}
+                      className="h-8 w-8 bg-gray-500 rounded-full mr-2"
+                    />
+                    <div>
+                      <div className="font-sans text-slate-300 font-thin">
+                        {m.senderName}
+                      </div>
+                      <div className="p-2 rounded bg-gray-300 text-black">
+                        {m.content}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                 
+              ))}
+              {message
+              .slice(0)
+              .reverse()
+              .map((m, i) => (
+                <div key={i} className="mb-2 flex flex-col">
+                  <div className={`flex justify-start items-center mb-2`}>
+                    <Image
+                      width={100}
+                      height={100}
+                      alt="pic"
+                      src={m.sender.pic}
+                      className="h-8 w-8 bg-gray-500 rounded-full mr-2"
+                    />
+                    <div>
+                      <div className="font-sans text-slate-300 font-thin">
+                        {m.sender.username}
+                      </div>
+                      <div className={`p-2 rounded bg-gray-300 text-black`}>
+                        {m.content}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
-        </ScrollableFeed>
+        {/* </ScrollableFeed> */}
       </div>
       <input
         type="text"

@@ -9,7 +9,7 @@ io.on("connection",(socket)=>{
         socket.join(channelId)
     });
     socket.on("chat message",(ChannelId,message,pic,user)=>{
-        console.log("Received Message: ",message);
+        console.log("Received Message: ",message, pic, user);
         socket.broadcast.to(ChannelId).emit("chat message", message,pic,user);
     })
 })
