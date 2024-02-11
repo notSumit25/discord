@@ -8,9 +8,9 @@ io.on("connection",(socket)=>{
     socket.on('joinRoom',(channelId)=>{
         socket.join(channelId)
     });
-    socket.on("chat message",(ChannelId,message,pic)=>{
+    socket.on("chat message",(ChannelId,message,pic,user)=>{
         console.log("Received Message: ",message);
-        socket.broadcast.to(ChannelId).emit("chat message", message,pic);
+        socket.broadcast.to(ChannelId).emit("chat message", message,pic,user);
     })
 })
 console.log("hello")

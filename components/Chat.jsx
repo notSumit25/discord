@@ -9,7 +9,11 @@ import { currentUser } from "@clerk/nextjs";
 
 
 const Chat = ({ params, user ,clerkuser}) => {
-
+  const isprevsender=(m,i)=>{
+       if(i==0) return true;
+       if(m[i].sendername == m[i-1].sendername) return true;
+       return false;
+  }
   const [socket, setSocket] = useState(undefined);
   const [Chat, setChat] = useState("");
   const { servers, channelId } = params; //serverID ,ChannelId
@@ -19,7 +23,7 @@ const Chat = ({ params, user ,clerkuser}) => {
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
       socket.emit("chat message", channelId, Chat,clerkuser);
-      const newMessage = { content: Chat, senderImage: clerkuser}
+      const newMessage = { content: Chat,sendername:user, senderImage: clerkuser}
       setmessages(messages=>[...messages, newMessage]);
       const response = await axios.post("/api/message", {
         content: Chat,
@@ -35,9 +39,9 @@ const Chat = ({ params, user ,clerkuser}) => {
     setSocket(socket);
     console.log("chh", channelId);
     socket.emit("joinRoom", channelId);
-    socket.on("chat message", (Chat,pic) => {
+    socket.on("chat message", (Chat,pic,user) => {
       console.log(Chat, "real time");
-      const newMessage = { content: Chat, senderImage: pic }
+      const newMessage = { content: Chat, sendername:user, senderImage: pic }
       setmessages(messages=>[...messages, newMessage]);
     });
     return () => {
@@ -71,10 +75,15 @@ const Chat = ({ params, user ,clerkuser}) => {
             {message.slice(0).reverse().map((m, i) => (
           <div key={i} className="mb-2 flex flex-col">
             <div className={`flex justify-start items-center mb-2`}>
+
             <Image width={100} height={100} alt="pic" src={m.sender.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
-              <div className={`p-2 rounded bg-gray-300 text-black`}>
+            <div>
+             <div className="font-sans text-white text-slate-300 font-thin">{m.sender.username}</div>
+            <div className={`p-2 rounded bg-gray-300 text-black`}>
                 {m.content}
               </div>
+            </div>
+              
             </div>
           </div>
         ))}
@@ -84,7 +93,13 @@ const Chat = ({ params, user ,clerkuser}) => {
               <div key={i} className="mb-2 flex flex-col">
                 <div className="flex justify-start">
                 <Image width={100} height={100} alt="pic" src={m.senderImage} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
-                  <div className="p-2 rounded bg-gray-300 text-black">{m.content}</div>
+                <div>
+                  {isprevsender(m,i)}&&
+                    <div className="font-sans text-white text-slate-300 font-thin">{m.sendername}</div>
+                  
+                <div className="p-2 rounded bg-gray-300 text-black">{m.content}</div>
+                </div>
+                 
                 </div>
               </div>
             ))}
