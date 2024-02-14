@@ -50,7 +50,6 @@ export async function PUT(req) {
     const messages = await Message.find({
     channel: channel,
     }).populate('sender');
-  
       return Server.NextResponse.json(messages)
   } catch (error) {
     console.log("[Message_GET]", error);

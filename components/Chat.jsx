@@ -11,6 +11,28 @@ const Chat = ({ params, user, clerkUser }) => {
   const { servers, channelId } = params;
   const [messages, setMessages] = useState([]);
   const inputRef = useRef(null);
+  
+
+  const fetchChats = async () => {
+    try {
+      const response = await axios.put("/api/message", {
+        channel: channelId,
+      });
+      const mes= response.data;
+      console.log("this is in fetchchats");
+      setMessages((messages) => [
+        ...messages,
+        ...mes.map((m) => ({
+        content: m.content,
+        senderName: m.sender.username,
+        senderImage: m.sender.pic 
+    }))
+    ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ console.log(messages);
 
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
@@ -20,23 +42,19 @@ const Chat = ({ params, user, clerkUser }) => {
         senderName: user,
         senderImage: clerkUser,
       };
+      await axios.post("/api/message",{
+         channel:params.channelId,
+         server:params.servers,
+        content:Chat
+      })
       setMessages((messages) => [...messages, newMessage]);
       setChat("");
     }
   };
 
-  const fetchChats = async () => {
-    try {
-      const response = await axios.put("/api/message", {
-        channel: channelId,
-      });
-      setMessages((messages) => [...messages, ...response.data]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    console.log("1234567")
     const socket = io("http://localhost:3001");
     setSocket(socket);
     socket.emit("joinRoom", channelId);
