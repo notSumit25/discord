@@ -20,19 +20,12 @@ const Chat = ({ params, user, clerkUser }) => {
       });
       const mes= response.data;
       console.log("this is in fetchchats");
-      setMessages((messages) => [
-        ...messages,
-        ...mes.map((m) => ({
-        content: m.content,
-        senderName: m.sender.username,
-        senderImage: m.sender.pic 
-    }))
-    ]);
+      setMessages(mes.map(message => ({ ...message, senderName: message.sender.username, senderImage: message.sender.pic})));
     } catch (error) {
       console.log(error);
     }
   };
- console.log(messages);
+  console.log(messages);
 
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
@@ -67,7 +60,7 @@ const Chat = ({ params, user, clerkUser }) => {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [params]);
 
   return (
     <div className="flex flex-col min-h-screen relative">
