@@ -32,7 +32,7 @@ const page = async ({ params }) => {
       )}
       {channel.type === "Audio" && (
         <div className=" min-h-screen w-full">
-          <VideoCall channelId={id} video={false} audio={true} />
+          <VideoCall channelId={id} video={false} audio={true} names={names} />
         </div>
       )}
     </div>
