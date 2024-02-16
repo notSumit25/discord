@@ -48,7 +48,7 @@ const Chat = ({ params, user, clerkUser }) => {
 
   useEffect(() => {
     console.log("1234567")
-    const socket = io("http://localhost:3001");
+    const socket = io("https://socket123.onrender.com");
     setSocket(socket);
     socket.emit("joinRoom", channelId);
     socket.on("chat message", (Chat, pic, user) => {
