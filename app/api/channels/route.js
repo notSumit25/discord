@@ -18,6 +18,10 @@ export async function POST(req) {
     if (!userm) {
       return new NextResponse.json({message:"Unauthorized"}, { status: 401 });
     }
+    if(!type)
+    {
+      return new NextResponse.json({message:"Channel type is required"}, { status: 401 });
+    }
     if (!param) {
         return new NextResponse("Server ID missing", { status: 400 });
       }
