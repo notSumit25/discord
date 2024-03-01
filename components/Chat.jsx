@@ -13,7 +13,7 @@ const Chat = ({ params, user, clerkUser }) => {
   const inputRef = useRef(null);
   
 
-  const fetchChats = async () => {
+  const fetchChats = useCallback(async () => {
     try {
       const response = await axios.put("/api/message", {
         channel: channelId,
@@ -24,7 +24,7 @@ const Chat = ({ params, user, clerkUser }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [channelId]);
   console.log(messages);
 
   const handleKeyPress = async (e) => {
@@ -60,7 +60,7 @@ const Chat = ({ params, user, clerkUser }) => {
     return () => {
       socket.disconnect();
     };
-  }, [params]);
+  }, [fetchChats,channelId]);
 
   return (
     <div className="flex flex-col min-h-screen relative">

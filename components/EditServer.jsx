@@ -12,7 +12,7 @@ const EditServer = ({ param }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  },[fetchData]);
 
   const getServer = async (param) => {
     try {
@@ -25,7 +25,7 @@ const EditServer = ({ param }) => {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const server = await getServer(param);
       if (server) {
@@ -37,7 +37,7 @@ const EditServer = ({ param }) => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [param]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

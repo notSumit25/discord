@@ -51,7 +51,7 @@ export default async function ChannelLayout({children, params}){
                         <h2 className="text-lg font-bold mb-2">Admin</h2>
                         {Admin.map((item) => (
                             <div key={item.userId} className="flex items-center mb-2">
-                                <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
+                                <Image width={100} height={100} src={item.pic} alt="Admin Image" className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
                                 <div className="m-2">{item.username}</div>
                                 <span className="m-2 text-gray-400  ">{item.SpecialRole}</span>
                             </div>
@@ -63,7 +63,7 @@ export default async function ChannelLayout({children, params}){
                         <h2 className="text-lg font-bold mb-2">Members</h2>
                         {Member.map((item) => (
                             <div key={item.userId} className="flex items-center mb-2">
-                                <Image width={100} height={100} src={item.pic} className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
+                                <Image width={100} height={100} src={item.pic} alt="Members Image" className="h-8 w-8 bg-gray-500 rounded-full mr-2" />
                                 <div>{item.username}</div>
                                 {isadmin && <AdminModal ServerId={params.servers} userId={item.userId.toString()}/>}
                                 <span className="m-2 text-gray-400">{item.SpecialRole}</span>
