@@ -45,7 +45,7 @@ export default async function ChannelLayout({children, params}){
             <main className="md:pl-60 min-h-screen">
                 {children}
             </main>
-            <div className="min-h-screen flex flex-col w-60 bg-[#2b2d31] fixed right-0 items-start py-4 px-4 z-50 text-white">
+            <div className="min-h-screen flex flex-col w-60 bg-[#2b2d31] fixed right-0 items-start py-4 px-4 z-30 text-white">
             {Admin.length > 0 && (
                     <div className="my-4">
                         <h2 className="text-lg font-bold mb-2">Admin</h2>

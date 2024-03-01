@@ -26,9 +26,14 @@ const page = async ({ params }) => {
         <Chat params={params} user={userm.username} clerkUser={userimage} />
       )}
       {channel.type === "Video" && (
-        <div className=" min-h-screen w-full">
-          <VideoCall channelId={id} video={true} audio={true} names={names}/>
-        </div>
+      <div className="z-50 min-h-screen w-full flex justify-center items-center fixed top-0 bottom-0">
+      <VideoCall
+        channelId={id}
+        video={true}
+        audio={true}
+        names={names}
+      />
+    </div>
       )}
       {channel.type === "Audio" && (
         <div className=" min-h-screen w-full">
