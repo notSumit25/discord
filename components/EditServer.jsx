@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { UploadButton, UploadDropzone } from '@/lib/uploadthing';
 import { currentUser } from '@clerk/nextjs';
@@ -12,7 +12,7 @@ const EditServer = ({ param }) => {
 
   useEffect(() => {
     fetchData();
-  },[fetchData]);
+  },[]);
 
   const getServer = async (param) => {
     try {
