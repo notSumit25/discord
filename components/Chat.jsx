@@ -64,7 +64,7 @@ const Chat = ({ params, user, clerkUser }) => {
 
   return (
     <div className="flex flex-col min-h-screen relative">
-      <div className="flex-grow">
+      <div className="flex-grow mt-10">
         <ScrollableFeed>
           <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10">
             {messages

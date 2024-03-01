@@ -18,13 +18,15 @@ const page = async ({ params }) => {
 
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="border-b-2 w-[990px] border-black h-12 py-7 fixed top-0 z-10 bg-[#313338] flex items-center pl-4">
         # {channel.channelName}
       </div>
+      <div>
       {channel.type === "TEXT" && (
         <Chat params={params} user={userm.username} clerkUser={userimage} />
       )}
+       </div>
       {channel.type === "Video" && (
       <div className="z-50 min-h-screen w-full flex justify-center items-center fixed top-0 bottom-0">
       <VideoCall
@@ -33,6 +35,7 @@ const page = async ({ params }) => {
         audio={true}
         names={names}
       />
+     
     </div>
       )}
       {channel.type === "Audio" && (
