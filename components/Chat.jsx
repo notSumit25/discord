@@ -63,28 +63,28 @@ const Chat = ({ params, user, clerkUser }) => {
   }, [fetchChats,channelId]);
 
   return (
-    <div className="flex flex-col min-h-screen relative">
-      <div className="flex-grow mt-10">
+    <div className="flex flex-col min-h-screen relative w-full">
+      <div className="flex-grow mt-10 w-full">
         <ScrollableFeed>
-          <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10">
+          <div className="flex flex-col-reverse flex-1 overflow-y-auto p-4 min-h-screen pb-12 bottom-10 w-[100%]">
             {messages
               .slice(0)
               .reverse()
               .map((m, i) => (
                 <div key={i} className="mb-2 flex flex-col">
-                  <div className="flex justify-start">
+                  <div className="flex justify-start my-1 w-full">
                     <Image
-                      width={100}
-                      height={100}
+                      width={200}
+                      height={200}
                       alt="pic"
                       src={m.senderImage}
-                      className="h-8 w-8 bg-gray-500 rounded-full mr-2"
+                      className="h-12 w-12 bg-gray-500 rounded-full mr-2"
                     />
                     <div>
-                      <div className="font-sans text-slate-300 font-thin">
+                      <div className="font-sans text-blue-700 font-bold">
                         {m.senderName}
                       </div>
-                      <div className="p-2 rounded bg-gray-300 text-black">
+                      <div className="rounded text-white">
                         {m.content}
                       </div>
                     </div>

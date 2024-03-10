@@ -18,11 +18,11 @@ const page = async ({ params }) => {
 
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="border-b-2 w-[990px] border-black h-12 py-7 fixed top-0 z-10 bg-[#313338] flex items-center pl-4">
         # {channel.channelName}
       </div>
-      <div>
+      <div className="w-full">
       {channel.type === "TEXT" && (
         <Chat params={params} user={userm.username} clerkUser={userimage} />
       )}

@@ -63,7 +63,7 @@ const EditProfileModal = () => {
       </svg>
            {Modal && (
         <div
-        className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center  rounded text-gray-400"
+        className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center  rounded text-gray-400 z-50"
         id="wrapper"
         onClick={handleCloseModal}
       >
