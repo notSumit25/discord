@@ -12,7 +12,7 @@ const EditServer = ({ param }) => {
 
   useEffect(() => {
     fetchData();
-  },[]);
+  },[param]);
 
   const getServer = async (param) => {
     try {
@@ -28,6 +28,8 @@ const EditServer = ({ param }) => {
   const fetchData = useCallback(async () => {
     try {
       const server = await getServer(param);
+      console.log('server is ', server);
+      console.log('param is ', param); 
       if (server) {
         setName(server.servername);
         setImage(server.serverpic);
