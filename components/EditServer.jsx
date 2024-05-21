@@ -34,7 +34,7 @@ const EditServer = ({ param }) => {
         setName(server.servername);
         setImage(server.serverpic);
       } else {
-        console.error('Server is undefined');
+        return null
       }
     } catch (error) {
       console.error(error);
